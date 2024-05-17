@@ -95,7 +95,7 @@ Les trajets optimaux pourront être déterminés grâce à l'algorithme de Dijks
 
 *On insiste sur l'importance de spécifier le commit. En effet, quand vous commencerez la Version 2, le code utilisé pour le test de la Version 1 sera modifié. Il se peut que vous n'ayez pas le temps de finaliser la Version 2 et vous retrouver avec un code qui ne marche pas même pour la Version 1. C'est pourquoi il est important de rédiger le rapport au fur et à mesure et de donner ici un lien vers la version de votre code qui marche pour la Version 1 du projet.*
 
-La classe de tests est la classe **GrapheTest.java**, le commit associé est le ... datant du ..., qui peut être retrouvée [ici]().
+La classe de tests est la classe **GrapheTest.java**, le commit associé est le da82035a1871f36148d4633f7114320a378a6c75 datant du 17/05/2024, qui peut être retrouvée [ici](https://gitlab.univ-lille.fr/sae2.01-2.02/2024/E4/-/commit/da82035a1871f36148d4633f7114320a378a6c75#f5ee136bacd34139f138ee76916440a4c0c4519c).
 
 Version 2 : multimodalité et prise en compte des correspondances
 ---
