@@ -1,0 +1,63 @@
+import fr.ulille.but.sae_s2_2024.ModaliteTransport;
+
+/** Classe permettant de représenter un Voyageur
+ * @author <a href=mailto:dylan.lecocq.etu@univ-lille.fr>Dylan L</a>
+ * @author <a href=mailto:amaury.vanhoutte.etu@univ-lille.fr>Amaury V</a>
+ * @version 1.0
+ */
+
+public class Voyageur {
+    /** Attribut permettant de caractériser un voyageur par un nom sous forme de chaîne de caractère */
+    private String nom;
+    /** Attribut permettant de caractériser un voyageur par un critère préféré */
+    private TypeCout typeCoutPref;
+    /** Attribut permettant de répresenter le cout maximal défini par le voyageur */
+    private double coutMax;
+    /** Attribut permettant de définir le moyen de transport favori du voyageur */
+    private ModaliteTransport transportFavori;
+
+    /** Constructeur de la classe, permettant d'instancier un nouveau Voyageur
+     * @param nom Nom du voyageur
+     * @param criterePref Critère préféré du voyageur
+     */
+    public Voyageur(String nom, TypeCout criterePref, double coutMax, ModaliteTransport transportFavori) {
+        this.nom = nom;
+        this.typeCoutPref = criterePref;
+        this.coutMax = coutMax;
+        this.transportFavori = transportFavori;
+    }
+
+    /** Retourne le nom du voyageur de l'instance courante
+     * @return Retourne une chaîne de caractère représentant le nom du voyageur
+     */
+    public String getNom() {
+        return this.nom;
+    }
+
+    /** Retourne le critère préféré du voyageur de l'instance courante
+     * @return Retourne le critère préféré du voyageur
+     */ 
+    public TypeCout getTypeCoutPref() {
+        return this.typeCoutPref;
+    }
+
+    /** Retourne le coût maximal accepté par le voyageur
+     * @return Le cout maximal du trajet défini par le voyageur
+     */
+    public double getCoutMax() {
+        return this.coutMax;
+    }
+
+    /** Retourne le moyen de transport favori du voyageur 
+     * @return Le moyen de transport favori du voyageur
+    */
+    public ModaliteTransport getTransportFavori() {
+        return this.transportFavori;
+    }
+    /** Permet de modifier le critère préféré du voyageur de l'instance courante
+     * @param count Nouvelle valeur du critère préféré
+     */
+    public void setTypeCoutPref(TypeCout cout) {
+        this.typeCoutPref = cout;
+    }
+}
