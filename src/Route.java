@@ -97,15 +97,6 @@ public class Route implements Chemin {
         String res = "";
         res = res + trajet.get(0).getModalite() + " de " + trajet.get(0).getDepart() + " à "
                 + trajet.get(trajet.size() - 1).getArrivee();
-        if (trajet.size() > 1) {
-            res = res + " en passant par ";
-            for (int idx = 0; idx < trajet.size() - 1; idx++) {
-                res = res + trajet.get(idx).getArrivee();
-                if (idx != trajet.size() - 2) {
-                    res = res + ", ";
-                }
-            }
-        }
         return res;
     }
 

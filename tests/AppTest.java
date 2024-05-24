@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 
 import fr.ulille.but.sae_s2_2024.MultiGrapheOrienteValue;
 import fr.ulille.but.sae_s2_2024.ModaliteTransport;
+
+import java.util.ArrayList;
 import java.util.HashSet;
 
 public class AppTest {
@@ -18,9 +20,13 @@ public class AppTest {
 
     @BeforeEach
     void initialization() {
-        v1 = new Voyageur("v1", TypeCout.TEMPS, 100, ModaliteTransport.TRAIN);
-        v2 =  new Voyageur("v2", TypeCout.PRIX, 150, ModaliteTransport.TRAIN);
-        v3 = new Voyageur("v3", TypeCout.CO2, 200, ModaliteTransport.AVION);
+        ArrayList<ModaliteTransport> train = new ArrayList<>();
+        train.add(ModaliteTransport.TRAIN);
+        ArrayList<ModaliteTransport> avion = new ArrayList<>();
+        avion.add(ModaliteTransport.AVION);       
+        v1 = new Voyageur("v1", TypeCout.TEMPS, 100, train);
+        v2 =  new Voyageur("v2", TypeCout.PRIX, 150, train);
+        v3 = new Voyageur("v3", TypeCout.CO2, 200, avion);
         data  = new String[]{"villeA;villeB;Train;60;1.7;80",
                             "villeB;villeD;Train;22;2.4;40",
                             "villeA;villeC;Train;42;1.4;50",
@@ -53,23 +59,37 @@ public class AppTest {
 
     @Test
     void testVerifiyData() {
-        assertTrue(App.verifiyData(data));
+        boolean result = false;
+        try {
+            App.verifiyData(data);
+            result = true;
+        } catch (InvalidStructureException e) {System.err.println(e.getMessage());}
+        assertTrue(result);
+        result = false;
         data = new String[]{};
-        assertFalse(App.verifiyData(data));
+        try {
+            App.verifiyData(data);
+            result = true;
+        } catch (InvalidStructureException e) {System.err.println(e.getMessage());}
+        assertFalse(result);
         data  = new String[]{"villeA;villeB;Train;60;1.7;80",
                             "villeB;villeD;Train;22;2.4;40",
                             "villeA;villeC;Train;42;1.4;50",
                             "villeB;villeC;Train;14;1.4",
                             "villeC;villeD;Avion;110;150;22",
                             "villeC;villeD;Train;65;1.2;90"};
-        assertFalse(App.verifiyData(data));                 
+        try {
+            App.verifiyData(data);
+            result = true;
+        } catch (InvalidStructureException e) {System.err.println(e.getMessage());}
+        assertFalse(result);
     }
 
     @Test
     void testRetrieveData() {
         data = new String[]{"villeA;villeB;Train;60;1.7;80"};
         data = data[0].split(";");
-        App.retrieveData(data, plateforme);
+        plateforme.retrieveData(data);
         Trajet trajet = plateforme.getTrajets().iterator().next();
         assertEquals(2, plateforme.getVilles().size());
         assertEquals(2, plateforme.getTrajets().size());
@@ -85,9 +105,9 @@ public class AppTest {
     void testAjouterVillesEtTrajets() {
         for (int idx=0; idx<data.length; idx++) {
             String[] tab = data[idx].split(";");
-            App.retrieveData(tab, plateforme);
+            plateforme.retrieveData(tab);
         }
-        App.ajouterVillesEtTrajets(graphe, plateforme, v1.getTypeCoutPref(), v1.getTransportFavori());
+        plateforme.ajouterVillesEtTrajets(graphe, v1.getTypeCoutPref(), v1.getTransportFavori());
         HashSet<Ville> villes = new HashSet<>();
         villes.add(a);
         villes.add(b);

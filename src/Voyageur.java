@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import fr.ulille.but.sae_s2_2024.ModaliteTransport;
 
 /** Classe permettant de représenter un Voyageur
@@ -14,13 +16,13 @@ public class Voyageur {
     /** Attribut permettant de répresenter le cout maximal défini par le voyageur */
     private double coutMax;
     /** Attribut permettant de définir le moyen de transport favori du voyageur */
-    private ModaliteTransport transportFavori;
+    private ArrayList<ModaliteTransport> transportFavori;
 
     /** Constructeur de la classe, permettant d'instancier un nouveau Voyageur
      * @param nom Nom du voyageur
      * @param criterePref Critère préféré du voyageur
      */
-    public Voyageur(String nom, TypeCout criterePref, double coutMax, ModaliteTransport transportFavori) {
+    public Voyageur(String nom, TypeCout criterePref, double coutMax, ArrayList<ModaliteTransport> transportFavori) {
         this.nom = nom;
         this.typeCoutPref = criterePref;
         this.coutMax = coutMax;
@@ -51,7 +53,7 @@ public class Voyageur {
     /** Retourne le moyen de transport favori du voyageur 
      * @return Le moyen de transport favori du voyageur
     */
-    public ModaliteTransport getTransportFavori() {
+    public ArrayList<ModaliteTransport> getTransportFavori() {
         return this.transportFavori;
     }
     /** Permet de modifier le critère préféré du voyageur de l'instance courante
