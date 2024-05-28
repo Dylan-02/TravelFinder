@@ -1,7 +1,12 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Scanner;
 
+import fr.ulille.but.sae_s2_2024.Chemin;
 import fr.ulille.but.sae_s2_2024.ModaliteTransport;
 import fr.ulille.but.sae_s2_2024.MultiGrapheOrienteValue;
 
@@ -81,6 +86,82 @@ public class Plateforme {
         }
     }
 
+    /** Permet d'afficher la liste des plus courts chemins passée en paramètre, en modifiant le résultat en fonction du type de coût du chemin.
+     * @param result Liste des plus courts chemins dans le graphe
+     * @param cout Type de cout du chemin
+     * @return Retourne sous forme de chaine de caractère la liste des plus courts chemins du graphe en fonction du type de coût choisi.
+     */
+    public String afficherPCC(List<Chemin> result, TypeCout cout) throws NoTripException {
+        if (result.isEmpty()) throw new NoTripException("Aucun voyage correspondant.");
+        String resultat = "";
+        if (result.size() == 1) resultat = "Le trajet optimal basé sur le facteur "+cout.name()+" est : \n";
+        else if (result.size() > 1) resultat = "Les trajets optimaux basés sur le facteur "+cout.name()+" sont : \n";
+        for (int idx=0; idx<result.size(); idx++) {
+            Route r = new Route(result.get(idx));
+            resultat = resultat + r.toString() + switch (cout) {
+                case CO2 -> "kg CO2e.\n";
+                case PRIX -> "€.\n";
+                case TEMPS -> " minutes.\n";
+                default -> ".\n";
+            };
+        }
+        return resultat;
+    }
+
+    /** Permet de vérifier si la chaîne de caractère passé en paramètre est numérique.
+     * @param str Chaine de caractère à tester
+     * @return Retourne vrai si la chaîne de caractère représente un nombre, false sinon
+     */
+    public boolean isNumeric(String str) { 
+        try {  
+            Double.parseDouble(str);  
+            return true;
+        } catch(NumberFormatException e){  
+            return false;  
+        }  
+    }
+
+    /** Permet de vérifier l'intégrité des données, c'est à dire si l'ensemble des champs attendus sont fournis et s'ils sont du bon format
+     * @param data Tablleau de chaîne de caractère regroupant l'ensemble des données, chaque case du tableau doit être au format "villeDépart;villeArrivée;modalitéTransport;prix(e);pollution(kgCO2 e);durée(min)"
+     * @return Retourne true si les données sont valides, false sinon
+     */
+    public boolean verifiyData(String[] data) throws InvalidStructureException {
+        if (data.length == 0 || data == null) throw new InvalidStructureException("Structure du fichier invalide.");
+        boolean result = true;
+        int idx=0;
+        while(idx<data.length && result) {
+            String[] res = data[idx].split(";");
+            if(res.length != 6) throw new InvalidStructureException("Structure du fichier invalide.");
+            for (int i = 3; i < res.length; i++) {
+                if (!isNumeric(res[i])) throw new InvalidStructureException("Structure du fichier invalide.");
+            }
+            idx++;
+        }
+        return result;
+    }
+
+    public boolean verifyCSV(String file) throws FileNotFoundException, InvalidStructureException {
+        boolean result = true;
+        Scanner sc = new Scanner(new File(file));
+        sc.useDelimiter(";|\n");
+        while (sc.hasNextLine()) {
+            for (int idx = 0; idx < 3; idx++) {
+                if (!sc.hasNext()) {
+                    sc.close();
+                    throw new InvalidStructureException("Structure du fichier invalide");
+                }
+            }
+            for (int cpt = 0; cpt < 3; cpt++) {
+                if (!sc.hasNextDouble()) {
+                    sc.close();
+                    throw new InvalidStructureException("Structure du fichier invalide");
+                }
+            }
+        }
+        sc.close();
+        return result;
+    }
+
     /**
      * Renvoie une représentation sous forme de chaîne de caractères de la Plateforme.
      *
@@ -90,4 +171,6 @@ public class Plateforme {
         return "Villes : " + this.villes.toString() + "\n" +
                "Trajets : " + this.trajets.toString();
     }
+
+
 }

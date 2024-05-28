@@ -61,14 +61,14 @@ public class AppTest {
     void testVerifiyData() {
         boolean result = false;
         try {
-            App.verifiyData(data);
+            plateforme.verifiyData(data);
             result = true;
         } catch (InvalidStructureException e) {System.err.println(e.getMessage());}
         assertTrue(result);
         result = false;
         data = new String[]{};
         try {
-            App.verifiyData(data);
+            plateforme.verifiyData(data);
             result = true;
         } catch (InvalidStructureException e) {System.err.println(e.getMessage());}
         assertFalse(result);
@@ -79,7 +79,7 @@ public class AppTest {
                             "villeC;villeD;Avion;110;150;22",
                             "villeC;villeD;Train;65;1.2;90"};
         try {
-            App.verifiyData(data);
+            plateforme.verifiyData(data);
             result = true;
         } catch (InvalidStructureException e) {System.err.println(e.getMessage());}
         assertFalse(result);
@@ -118,11 +118,11 @@ public class AppTest {
 
     @Test
     void testIsNumeric() {
-        assertTrue(App.isNumeric("5"));
-        assertTrue(App.isNumeric("456"));
-        assertTrue(App.isNumeric("-5"));
-        assertTrue(App.isNumeric("67.5"));
-        assertFalse(App.isNumeric("Test"));
-        assertFalse(App.isNumeric(""));
+        assertTrue(plateforme.isNumeric("5"));
+        assertTrue(plateforme.isNumeric("456"));
+        assertTrue(plateforme.isNumeric("-5"));
+        assertTrue(plateforme.isNumeric("67.5"));
+        assertFalse(plateforme.isNumeric("Test"));
+        assertFalse(plateforme.isNumeric(""));
     }
 }

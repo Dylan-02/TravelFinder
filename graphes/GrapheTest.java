@@ -21,15 +21,15 @@ public class GrapheTest {
         Plateforme plateforme = new Plateforme();
         MultiGrapheOrienteValue graphe = new MultiGrapheOrienteValue();
         try {
-            App.verifiyData(data);
+            plateforme.verifiyData(data);
             for (int idx=0; idx<data.length; idx++) {
                 String[] tab = data[idx].split(";");
                 plateforme.retrieveData(tab);
             }
             plateforme.ajouterVillesEtTrajets(graphe, voyageur.getTypeCoutPref(), voyageur.getTransportFavori());
             List<Chemin> result = AlgorithmeKPCC.kpcc(graphe, new Ville("villeA"), new Ville("villeE"), 3);
-            result = App.verifierBornes(result, voyageur.getCoutMax());
-            System.out.println(App.afficherPCC(result, voyageur.getTypeCoutPref()));
+            result = voyageur.verifierBornes(result);
+            System.out.println(plateforme.afficherPCC(result, voyageur.getTypeCoutPref()));
                 
         }
         catch (InvalidStructureException e) {System.err.println(e.getMessage());}

@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.List;
 
+import fr.ulille.but.sae_s2_2024.Chemin;
 import fr.ulille.but.sae_s2_2024.ModaliteTransport;
 
 /** Classe permettant de représenter un Voyageur
@@ -61,5 +63,21 @@ public class Voyageur {
      */
     public void setTypeCoutPref(TypeCout cout) {
         this.typeCoutPref = cout;
+    }
+
+    /** Permet de vérifier si les trajets passés en paramètre ne dépassent pas le cout maximal
+     * 
+     * @param trajets Représente un ensemble de trajets
+     * @return Une liste ne contenant que les trajets ayant un coût inférieur ou égal au coût maximal.
+     */
+    public List<Chemin> verifierBornes(List<Chemin> trajets) {
+        List<Chemin> resultat = new ArrayList<>();
+        if (trajets.size() > 0) {
+            for (int idx = 0; idx<trajets.size(); idx++) {
+                Route trajet = new Route(trajets.get(idx));
+                if (trajet.poids()<=this.getCoutMax()) resultat.add(trajet);
+            }
+        }
+        return resultat;
     }
 }
