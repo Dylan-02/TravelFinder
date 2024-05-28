@@ -150,16 +150,48 @@ public class Plateforme {
                     sc.close();
                     throw new InvalidStructureException("Structure du fichier invalide");
                 }
+                sc.next();
             }
             for (int cpt = 0; cpt < 3; cpt++) {
-                if (!sc.hasNextDouble()) {
+                if (!sc.hasNext()) {
                     sc.close();
                     throw new InvalidStructureException("Structure du fichier invalide");
                 }
+                sc.next();
             }
         }
         sc.close();
         return result;
+    }
+
+    public String[] getDataFromCSV(String file) throws FileNotFoundException, InvalidStructureException {
+        String[] data = new String[0];
+        int nbLines = this.getNbLinesFile(file);
+        data = new String[nbLines];
+        if (verifyCSV(file)) {
+            Scanner sc = new Scanner(new File(file));
+            sc.useDelimiter("\n");
+            for (int idx = 0; idx < nbLines; idx++) {
+                data[idx] = sc.nextLine();
+            }
+            sc.close();
+        }
+        return data;
+    }
+
+    public int getNbLinesFile(String path) throws FileNotFoundException {
+        int nbLines = 0;
+        try {
+            File file = new File(path);
+            Scanner sc = new Scanner(file);
+            while (sc.hasNextLine()) {
+                nbLines++;
+                sc.nextLine();
+            }
+            sc.close();
+        }
+        catch (FileNotFoundException e) {System.err.println(e.getMessage());}
+        return nbLines;
     }
 
     /**
@@ -171,6 +203,4 @@ public class Plateforme {
         return "Villes : " + this.villes.toString() + "\n" +
                "Trajets : " + this.trajets.toString();
     }
-
-
 }
