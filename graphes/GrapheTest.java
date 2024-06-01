@@ -13,6 +13,7 @@ public class GrapheTest {
         transports.add(ModaliteTransport.TRAIN);
         Voyageur voyageur = new Voyageur("Lisa", TypeCout.TEMPS, 150.0, transports);
         String trajets = "./graphes/trajets.csv";
+        String couts = "./graphes/couts.csv";
         Plateforme plateforme = new Plateforme();
         MultiGrapheOrienteValue graphe = new MultiGrapheOrienteValue();
         try {
