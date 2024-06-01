@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,17 +11,12 @@ public class GrapheTest {
     public static void main(String[] args) {
         ArrayList<ModaliteTransport> transports = new ArrayList<>();
         transports.add(ModaliteTransport.TRAIN);
-        Voyageur voyageur = new Voyageur("Lisa", TypeCout.PRIX, 100.0, transports);
-        String[] data = new String[] {"villeA;villeB;Train;50;1.7;60",
-                                    "villeA;villeC;Train;30;1.4;40",
-                                    "villeB;villeC;Train;20;1.4;50",
-                                    "villeB;villeD;Train;30;2.4;40",
-                                    "villeC;villeE;Train;65;1.2;90",
-                                    "villeD;villeE;Train;50;1.3;60",
-                                    "villeA;villeE;Avion;170;300;30"};
+        Voyageur voyageur = new Voyageur("Lisa", TypeCout.TEMPS, 150.0, transports);
+        String trajets = "./graphes/trajets.csv";
         Plateforme plateforme = new Plateforme();
         MultiGrapheOrienteValue graphe = new MultiGrapheOrienteValue();
         try {
+            String[] data = plateforme.getDataFromCSV(trajets);
             plateforme.verifiyData(data);
             for (int idx=0; idx<data.length; idx++) {
                 String[] tab = data[idx].split(";");
@@ -32,6 +28,7 @@ public class GrapheTest {
             System.out.println(plateforme.afficherPCC(result, voyageur.getTypeCoutPref()));
                 
         }
+        catch (FileNotFoundException e) {System.err.println(e.getMessage());}
         catch (InvalidStructureException e) {System.err.println(e.getMessage());}
         catch (NoTripException e) {System.err.println(e.getMessage());}
     }
