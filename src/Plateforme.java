@@ -73,6 +73,7 @@ public class Plateforme {
      * @param graphe Graphe dans lequel les villes et les trajets vont être ajoutés
      * @param plateforme Plateforme regroupant l'ensemble des villes et des trajets
      * @param cout Coût prioritaire défini par l'utilisateur
+     * @param transports Transports définis par l'utilisateur
      */
     public void ajouterVillesEtTrajets(MultiGrapheOrienteValue graphe, TypeCout cout, ArrayList<ModaliteTransport> transports) {
         for (Ville ville : this.getVilles()) {
@@ -139,6 +140,13 @@ public class Plateforme {
         return result;
     }
 
+    /**
+     * Permet de vérifier la validité d'un fichier passé en paramètre
+     * @param file chemin du fichier CSV à lire
+     * @return un booléen indiquant si le fichier est valide ou non
+     * @throws FileNotFoundException si le chemin passé en paramètre ne correspond à aucun fichier
+     * @throws InvalidStructureException si le fichier ne respecte pas la structuration attendue
+     */
     public boolean verifyCSV(String file) throws FileNotFoundException, InvalidStructureException {
         boolean result = true;
         Scanner sc = new Scanner(new File(file));
@@ -163,6 +171,13 @@ public class Plateforme {
         return result;
     }
 
+    /**
+     * Permet de recupérer les données d'un fichier CSV
+     * @param file chemin du fichier CSV à lire
+     * @return les données du fichier dans un tableau de chaines de caractères
+     * @throws FileNotFoundException si le chemin passé en paramètre ne correspond à aucun fichier
+     * @throws InvalidStructureException si le fichier ne respecte pas la structuration attendue
+     */
     public String[] getDataFromCSV(String file) throws FileNotFoundException, InvalidStructureException {
         String[] data = new String[0];
         int nbLines = this.getNbLinesFile(file);
@@ -178,6 +193,12 @@ public class Plateforme {
         return data;
     }
 
+    /**
+     * Permet d'obtenir le nombre de lignes d'un fichier
+     * @param path Le chemin du fichier à lire
+     * @return le nombre de ligne du fichier sous forme d'entier
+     * @throws FileNotFoundException si le chemin passé en paramètre ne correspond à aucun fichier
+     */
     public int getNbLinesFile(String path) throws FileNotFoundException {
         int nbLines = 0;
         try {
