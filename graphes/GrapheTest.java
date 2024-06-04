@@ -23,6 +23,9 @@ public class GrapheTest {
                 String[] tab = data[idx].split(";");
                 plateforme.retrieveData(tab);
             }
+            String[] correspondances = plateforme.getDataFromCSV(couts);
+            plateforme.verifiyData(correspondances);
+            plateforme.ajouterCorrespondances(correspondances);
             plateforme.ajouterVillesEtTrajets(graphe, voyageur.getTypeCoutPref(), voyageur.getTransportFavori());
             List<Chemin> result = AlgorithmeKPCC.kpcc(graphe, new Ville("villeA"), new Ville("villeE"), 3);
             result = voyageur.verifierBornes(result);
