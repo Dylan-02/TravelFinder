@@ -246,7 +246,6 @@ public class Plateforme {
                     break;
                 default : new Ville("");
             }
-            double poids;
             HashMap<TypeCout, Double> couts = new HashMap<>();
             couts.put(TypeCout.PRIX, Double.parseDouble(corresp[3]));
             couts.put(TypeCout.CO2, Double.parseDouble(corresp[4]));
