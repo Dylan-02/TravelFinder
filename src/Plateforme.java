@@ -214,6 +214,48 @@ public class Plateforme {
         return nbLines;
     }
 
+    public void ajouterCorrespondances(String[] tab) throws InvalidStructureException, IllegalArgumentException {
+        for (int idx = 0; idx < tab.length; idx++) {
+            String[] corresp = tab[idx].split(";");
+            String ville = corresp[0];
+            ModaliteTransport modaliteArrivee = ModaliteTransport.valueOf(corresp[1].toUpperCase());
+            ModaliteTransport modaliteDepart = ModaliteTransport.valueOf(corresp[2].toUpperCase());
+            Ville depart = new Ville("");
+            Ville arrivee = new Ville("");
+            switch (modaliteArrivee) {
+                case AVION : 
+                    depart = new Ville(ville+"-Aeroport");
+                    break;
+                case TRAIN : 
+                    depart = new Ville(ville+"-Gare");
+                    break;
+                case BUS : 
+                    depart = new Ville(ville+"-Bus");
+                    break;
+                default : new Ville("");
+            }
+            switch (modaliteDepart) {
+                case AVION : 
+                    arrivee = new Ville(ville+"-Aeroport");
+                    break;
+                case TRAIN : 
+                    arrivee = new Ville(ville+"-Gare");
+                    break;
+                case BUS : 
+                    arrivee = new Ville(ville+"-Bus");
+                    break;
+                default : new Ville("");
+            }
+            double poids;
+            HashMap<TypeCout, Double> couts = new HashMap<>();
+            couts.put(TypeCout.PRIX, Double.parseDouble(corresp[3]));
+            couts.put(TypeCout.CO2, Double.parseDouble(corresp[4]));
+            couts.put(TypeCout.TEMPS, Double.parseDouble(corresp[5]));
+            Trajet trajet = new Trajet(depart, arrivee, modaliteDepart, couts);
+            this.trajets.add(trajet);
+        }
+    }
+
     /**
      * Renvoie une représentation sous forme de chaîne de caractères de la Plateforme.
      *

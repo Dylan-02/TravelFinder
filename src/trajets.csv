@@ -1,6 +1,9 @@
-villeA;villeB;Train;60;1.7;80
-villeB;villeD;Train;22;2.4;40
-villeA;villeC;Train;42;1.4;50
-villeB;villeC;Train;14;1.4;60
-villeC;villeD;Avion;110;150;22
-villeC;villeD;Train;65;1.2;90
+villeA;villeA-Gare;Train;0;0;0
+villeA-Gare;villeB-Gare;Train;60;1.7;80
+villeB-Gare;villeD-Gare;Train;22;2.4;40
+villeA-Gare;villeC-Gare;Train;42;1.4;50
+villeB-Gare;villeC-Gare;Train;14;1.4;60
+villeC-Aeroport;villeD-Aeroport;Avion;110;150;22
+villeC-Gare;villeD-Gare;Train;65;1.2;90
+villeD-Gare;villeD;Train;0;0;0
+villeD-Aeroport;villeD;Avion;0;0;0

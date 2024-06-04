@@ -30,12 +30,16 @@ public class App {
                 String[] tab = data[idx].split(";");
                 plateforme.retrieveData(tab);
             }
+            String[] correspondances = plateforme.getDataFromCSV(couts);
+            plateforme.verifiyData(correspondances);
+            plateforme.ajouterCorrespondances(correspondances);
             plateforme.ajouterVillesEtTrajets(graphe, voyageur.getTypeCoutPref(), voyageur.getTransportFavori());
             List<Chemin> result = AlgorithmeKPCC.kpcc(graphe, new Ville("villeA"), new Ville("villeD"), 3);
             result = voyageur.verifierBornes(result);
             System.out.println(plateforme.afficherPCC(result, voyageur.getTypeCoutPref()));
         }
         catch (FileNotFoundException e) {System.err.println(e.getMessage());}
+        catch (IllegalArgumentException e) {System.err.println("Argument invalide");}
         catch (InvalidStructureException e) {System.err.println(e.getMessage());}
         catch (NoTripException e) {System.err.println(e.getMessage());}
     }
