@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import fr.ulille.but.sae_s2_2024.MultiGrapheOrienteValue;
 import fr.ulille.but.sae_s2_2024.ModaliteTransport;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -18,6 +19,7 @@ public class AppTest {
     Plateforme plateforme;
     Ville a, b, c, d;
     String[] corresp;
+    String file;
 
     @BeforeEach
     void initialization() {
@@ -41,6 +43,7 @@ public class AppTest {
         c = new Ville("villeC");
         d = new Ville("villeD");
         corresp = new String[]{"villeC;Train;Avion;60;0.1;20"};
+        file = "./src/trajets.csv";
     }
 
     @Test
@@ -151,5 +154,20 @@ public class AppTest {
             result = true;
         } catch (IllegalArgumentException e) {System.err.println(e.getMessage());}
         assertTrue(result);
+    }
+
+    @Test
+    void testgetNbLinesFile(){
+        int result= 0;
+        try{
+            result= plateforme.getNbLinesFile(" ");
+        } 
+        catch (FileNotFoundException e) {System.err.println(e.getMessage());}
+        assertEquals(0, result);
+        try{
+            result= plateforme.getNbLinesFile(file);
+        } 
+        catch (FileNotFoundException e) {System.err.println(e.getMessage());}
+        assertEquals(9, result);
     }
 }
