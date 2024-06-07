@@ -110,7 +110,7 @@ Version 2 : multimodalité et prise en compte des correspondances
 
 Lisa habite dans la ville A, aujourd'hui elle se rend chez sa grand-mère qui habite dans la ville E pour les vacances.   
 La ville A et la ville E sont reliées par différents axes :
-  - un axe ferroviaire de la ville A à la ville B, ayant un coût financier de 50 €, une durée de 60 minutes et un rejet de C02 de 1,7 kg CO2e.  
+  - un axe ferroviaire de la ville A à la ville B, ayant un coût financier de 50 €, une durée de 60 minutes et un rejet de CO2 de 1,7 kg CO2e.  
   - un axe ferroviaire de la ville A à la ville C, ayant un coût financier de 30 €, une durée de 40 minutes et un rejet de CO2 de 1,4 kg CO2e.  
   - un axe ferroviaire de la ville B à la ville C, ayant un coût financier de 20 €, une durée de 50 minutes et un rejet de CO2 de 1,4 kg CO2e.  
   - un axe ferroviaire de la ville B à la ville D, ayant un coût financier de 30 €, une durée de 40 minutes et un rejet de CO2 de 2,4 kg CO2e.  
@@ -118,16 +118,16 @@ La ville A et la ville E sont reliées par différents axes :
   - un axe ferroviaire de la ville D à la ville E, ayant un coût financier de 50 €, une durée de 60 minutes et un rejet de CO2 de 1,3 kg CO2e.  
   - un axe aérien de la ville C à la ville E, ayant un coût financier de 100 €, une durée de 15 minutes et un rejet de CO2 de 150 kg CO2e.  
   - un axe aérien de la ville A à la ville E, ayant un coût financier de 170 €, une durée de 30 minutes et un rejet de CO2 de 300 kg CO2e.  
-La correspondance entre la gare de la ville C et son aéroport se fait en Train, et à un coût financier de 60€, une durée de 20 minutes et un rejet de 0,1 kg CO2e.  
-Pas très ponctuelle, Lisa est partie est retard et doit être au plus vite chez sa grand-mère pour un repas de famille, qui débute dans 1h30.  
-Lisa souhaite pouvoir comparer les trajets ayant la durée la plus faible.
-D'après ses critères, les meilleurs trajets sont les suivants :
-  - Ville A à Ville E en Avion -> 30 minutes;
-  - ville A à ville C en train, correspondance, puis ville C à ville E en avion -> 75 minutes
-  - ville A à ville E en passant par ville B, ville D en train -> 130 minutes
-  - ville A à ville E en passant par ville C, ville B, ville D en train -> 130 minutes
 
-En sachant que les deux derniers trajets dépassent le temps limite de Lisa qui est de 1h30, il ne lui reste plus que deux trajets possibles pour se rendre chez sa grand-mère.  
+La correspondance entre la gare de la ville C et son aéroport se fait en Train, et à un coût financier de 60 €, une durée de 20 minutes et un rejet de 0,1 kg CO2e.  
+Pas très ponctuelle, Lisa est partie est retard et doit être au plus vite chez sa grand-mère pour un repas de famille, qui débute dans 1 h 30.  
+Lisa souhaite pouvoir comparer les trois trajets ayant la durée la plus faible.
+D'après ses critères, les trois meilleurs trajets sont les suivants :
+  - Ville A à Ville E en Avion → 30 minutes
+  - ville A à ville C en train, correspondance, puis ville C à ville E en avion → 75 minutes
+  - ville A à ville E en passant par ville C → 130 minutes
+
+En sachant que le dernier trajet dépasse le temps limite de Lisa qui est de 1 h 30, il ne lui reste plus que deux trajets possibles pour se rendre chez sa grand-mère.  
 Le trajet optimal étant la ligne aérienne reliant la ville A à la ville E, avec une durée de 30 minutes.  
 
 ### Modèle pour l'exemple
@@ -135,10 +135,17 @@ Le trajet optimal étant la ligne aérienne reliant la ville A à la ville E, av
 *Donner le graphe modélisant l'exemple ci-dessus.*
 *Donner la solution du problème (càd les meilleurs itinéraires) en tant que chemins dans le graphe.*
 
+![Graphe représentant l'exemple](grapheV2.png)  
+
+Les trois plus courts chemins dans le graphe sont [A, E] avec un poids de 30, [A, C, C', E] avec un poids de 75 puis [A, C, E] avec un poids de 130.  
+
 ### Modélisation pour la Version 2 dans le cas général
 
 *Mêmes questions que pour la section correspondante de la Version 1, mais cette fois-ci les données d'entrée contiennent aussi des couts de correspondance.*
 *Vous pouvez expliquer l'entièreté de la solution pour la Version 2, ou bien indiquer **clairement** les différences par rapport à la solution proposée pour la Version 1.*
+
+Le graphe de la version 2 est structuré de la même façon que celui de la version 1, les sommets représentent les villes tandis que les arêtes représentent les axes reliant ces villes.
+Les villes peuvent cependant être représentées plusieurs fois, avec des arêtes entre chacune d'entre elles, cela modélise les correspondances possibles s'il y a changement de modalité de transport au sein de cette même ville.  
 
 ### Implémentation de la Version 2
 
@@ -147,6 +154,7 @@ Le trajet optimal étant la ligne aérienne reliant la ville A à la ville E, av
 *Donner ici le **nom complet de la classe**, **la date et l'identifiant du commit à regarder** et un **lien vers la page de cette classe sur gitlab qui correspond au bon commit***.
 *En particulier, il peut s'agir de la même classe que celle donnée pour la Version 1, mais un commit différent.*
 
+La classe de tests est la même classe que lors de la version 1, c'est-à-dire la classe **GrapheTest.java**, le commit associé est le e4082a1fdef6d17df2a22702615d72aeb5afe446 datant du 7/06/2024, qui peut être retrouvée [ici](https://gitlab.univ-lille.fr/sae2.01-2.02/2024/E4/-/blob/main/graphes/GrapheTest.java?ref_type=heads).
 
 Version 3 : optimisation multi-critères
 ---
