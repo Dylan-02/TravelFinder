@@ -157,7 +157,7 @@ public class AppTest {
     }
 
     @Test
-    void testgetNbLinesFile(){
+    void testGetNbLinesFile(){
         int result= 0;
         try{
             result= plateforme.getNbLinesFile(" ");
@@ -169,5 +169,23 @@ public class AppTest {
         } 
         catch (FileNotFoundException e) {System.err.println(e.getMessage());}
         assertEquals(9, result);
+    }
+
+    @Test
+    void testVerifyCSV(){
+        boolean result = false;
+        try{
+            result = plateforme.verifyCSV(" ");;
+            
+        } 
+        catch (FileNotFoundException e) {System.err.println(e.getMessage());}
+        catch (InvalidStructureException e) {System.err.println(e.getMessage());}
+        assertFalse(result);
+        try{
+            result = plateforme.verifyCSV(file);
+        } 
+        catch (FileNotFoundException e) {System.err.println(e.getMessage());}
+        catch (InvalidStructureException e) {System.err.println(e.getMessage());}
+        assertTrue(result);
     }
 }

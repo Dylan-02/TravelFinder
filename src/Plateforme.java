@@ -152,14 +152,7 @@ public class Plateforme {
         Scanner sc = new Scanner(new File(file));
         sc.useDelimiter(";|\n");
         while (sc.hasNextLine()) {
-            for (int idx = 0; idx < 3; idx++) {
-                if (!sc.hasNext()) {
-                    sc.close();
-                    throw new InvalidStructureException("Structure du fichier invalide");
-                }
-                sc.next();
-            }
-            for (int cpt = 0; cpt < 3; cpt++) {
+            for (int idx = 0; idx < 6; idx++) {
                 if (!sc.hasNext()) {
                     sc.close();
                     throw new InvalidStructureException("Structure du fichier invalide");
