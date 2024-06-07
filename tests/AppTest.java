@@ -17,6 +17,7 @@ public class AppTest {
     MultiGrapheOrienteValue graphe;
     Plateforme plateforme;
     Ville a, b, c, d;
+    String[] corresp;
 
     @BeforeEach
     void initialization() {
@@ -39,6 +40,7 @@ public class AppTest {
         b = new Ville("villeB");
         c = new Ville("villeC");
         d = new Ville("villeD");
+        corresp = new String[]{"villeC;Train;Avion;60;0.1;20"};
     }
 
     @Test
@@ -124,5 +126,30 @@ public class AppTest {
         assertTrue(plateforme.isNumeric("67.5"));
         assertFalse(plateforme.isNumeric("Test"));
         assertFalse(plateforme.isNumeric(""));
+    }
+
+    @Test
+    void testAjouterCorrespondances () throws IllegalArgumentException, InvalidStructureException{
+        boolean result = false;
+        for (int idx=0; idx<data.length; idx++) {
+            String[] tab = data[idx].split(";");
+            plateforme.retrieveData(tab);
+        }
+        plateforme.ajouterVillesEtTrajets(graphe, v1.getTypeCoutPref(), v1.getTransportFavori());
+        try {
+            plateforme.ajouterCorrespondances(data);
+            result = true;
+        } catch (IllegalArgumentException e) {System.err.println(e.getMessage());}
+        assertFalse (result);
+        try {
+            plateforme.ajouterCorrespondances(new String[]{});
+            result = true;
+        } catch (InvalidStructureException e) {System.err.println(e.getMessage());}
+        assertTrue(result);
+        try {
+            plateforme.ajouterCorrespondances(corresp);
+            result = true;
+        } catch (IllegalArgumentException e) {System.err.println(e.getMessage());}
+        assertTrue(result);
     }
 }
