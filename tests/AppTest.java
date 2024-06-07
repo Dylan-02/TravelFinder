@@ -1,3 +1,4 @@
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -10,6 +11,7 @@ import fr.ulille.but.sae_s2_2024.ModaliteTransport;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 
 public class AppTest {
@@ -20,6 +22,7 @@ public class AppTest {
     Ville a, b, c, d;
     String[] corresp;
     String file;
+    String[] trajets;
 
     @BeforeEach
     void initialization() {
@@ -44,6 +47,15 @@ public class AppTest {
         d = new Ville("villeD");
         corresp = new String[]{"villeC;Train;Avion;60;0.1;20"};
         file = "./src/trajets.csv";
+        trajets = new String[]{"villeA;villeA-Gare;Train;0;0;0",
+                            "villeA-Gare;villeB-Gare;Train;60;1.7;80",
+                            "villeB-Gare;villeD-Gare;Train;22;2.4;40",
+                            "villeA-Gare;villeC-Gare;Train;42;1.4;50",
+                            "villeB-Gare;villeC-Gare;Train;14;1.4;60",
+                            "villeC-Aeroport;villeD-Aeroport;Avion;110;150;22",
+                            "villeC-Gare;villeD-Gare;Train;65;1.2;90",
+                            "villeD-Gare;villeD;Train;0;0;0",
+                            "villeD-Aeroport;villeD;Avion;0;0;0"};
     }
 
     @Test
@@ -187,5 +199,22 @@ public class AppTest {
         catch (FileNotFoundException e) {System.err.println(e.getMessage());}
         catch (InvalidStructureException e) {System.err.println(e.getMessage());}
         assertTrue(result);
+    }
+
+    @Test
+    void testGetDataFromCSV(){
+        String[] result = new String[]{};
+        try{
+            result = plateforme.getDataFromCSV(" ");
+        } 
+        catch (FileNotFoundException e) {System.err.println(e.getMessage());}
+        catch (InvalidStructureException e) {System.err.println(e.getMessage());}
+        assertNotEquals(result, trajets);
+        try{
+            result = plateforme.getDataFromCSV(file);
+        } 
+        catch (FileNotFoundException e) {System.err.println(e.getMessage());}
+        catch (InvalidStructureException e) {System.err.println(e.getMessage());}
+        assertTrue(Arrays.equals(result, trajets));
     }
 }
