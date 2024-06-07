@@ -108,6 +108,28 @@ Version 2 : multimodalité et prise en compte des correspondances
 *Donner la solution du problème du point de vue de l'utilisatrice (quels sont les itinéraires possibles, lesquels sont optimaux et pourquoi).*
 *Il est possible d'utiliser le même exemple que pour la Version 1 ou le modifier si pertinent.*
 
+Lisa habite dans la ville A, aujourd'hui elle se rend chez sa grand-mère qui habite dans la ville E pour les vacances.   
+La ville A et la ville E sont reliées par différents axes :
+  - un axe ferroviaire de la ville A à la ville B, ayant un coût financier de 50 €, une durée de 60 minutes et un rejet de C02 de 1,7 kg CO2e.  
+  - un axe ferroviaire de la ville A à la ville C, ayant un coût financier de 30 €, une durée de 40 minutes et un rejet de CO2 de 1,4 kg CO2e.  
+  - un axe ferroviaire de la ville B à la ville C, ayant un coût financier de 20 €, une durée de 50 minutes et un rejet de CO2 de 1,4 kg CO2e.  
+  - un axe ferroviaire de la ville B à la ville D, ayant un coût financier de 30 €, une durée de 40 minutes et un rejet de CO2 de 2,4 kg CO2e.  
+  - un axe ferroviaire de la ville C à la ville E, ayant un coût financier de 65 €, une durée de 90 minutes et un rejet de CO2 de 1,2 kg CO2e.  
+  - un axe ferroviaire de la ville D à la ville E, ayant un coût financier de 50 €, une durée de 60 minutes et un rejet de CO2 de 1,3 kg CO2e.  
+  - un axe aérien de la ville C à la ville E, ayant un coût financier de 100 €, une durée de 15 minutes et un rejet de CO2 de 150 kg CO2e.  
+  - un axe aérien de la ville A à la ville E, ayant un coût financier de 170 €, une durée de 30 minutes et un rejet de CO2 de 300 kg CO2e.  
+La correspondance entre la gare de la ville C et son aéroport se fait en Train, et à un coût financier de 60€, une durée de 20 minutes et un rejet de 0,1 kg CO2e.  
+Pas très ponctuelle, Lisa est partie est retard et doit être au plus vite chez sa grand-mère pour un repas de famille, qui débute dans 1h30.  
+Lisa souhaite pouvoir comparer les trajets ayant la durée la plus faible.
+D'après ses critères, les meilleurs trajets sont les suivants :
+  - Ville A à Ville E en Avion -> 30 minutes;
+  - ville A à ville C en train, correspondance, puis ville C à ville E en avion -> 75 minutes
+  - ville A à ville E en passant par ville B, ville D en train -> 130 minutes
+  - ville A à ville E en passant par ville C, ville B, ville D en train -> 130 minutes
+
+En sachant que les deux derniers trajets dépassent le temps limite de Lisa qui est de 1h30, il ne lui reste plus que deux trajets possibles pour se rendre chez sa grand-mère.  
+Le trajet optimal étant la ligne aérienne reliant la ville A à la ville E, avec une durée de 30 minutes.  
+
 ### Modèle pour l'exemple
 
 *Donner le graphe modélisant l'exemple ci-dessus.*
