@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -54,6 +55,8 @@ public class MonController {
     private ComboBox<TypeCout> criteres;
     @FXML
     private Button boutonCalculerVoyage;
+    @FXML
+    private ListView<String> resultats;
 
     // Historique
     @FXML
@@ -125,12 +128,26 @@ public class MonController {
     }
 
     private void calculerVoyage() {
+        resultats.getItems().clear();
         graphe = new MultiGrapheOrienteValue();
         plateforme.ajouterVillesEtTrajets(graphe, criteres.getSelectionModel().getSelectedItem(), getSelectedTransports());
         List<Chemin> result = AlgorithmeKPCC.kpcc(graphe, villeDepart.getSelectionModel().getSelectedItem(), villeArrivee.getSelectionModel().getSelectedItem(), 3);
-        try {
-            System.out.println(plateforme.afficherPCC(result, criteres.getSelectionModel().getSelectedItem()));
-        } catch (NoTripException e) {System.err.println(e.getMessage());}
+        String resultat = "";
+        if (result.size() > 0) {
+            for (int idx=0; idx<result.size(); idx++) {
+                Route r = new Route(result.get(idx));
+                resultat = r.toString() + switch (criteres.getSelectionModel().getSelectedItem()) {
+                    case CO2 -> "kg CO2e.";
+                    case PRIX -> "€.";
+                    case TEMPS -> " minutes.";
+                    default -> ".";
+                };
+                resultats.getItems().add(resultat);
+            }
+        } else {
+            resultat = "Aucun trajet correspondant";
+            resultats.getItems().add(resultat);
+        }
     }
 
     private ArrayList<ModaliteTransport> getSelectedTransports() {

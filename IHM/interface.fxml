@@ -6,6 +6,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.effect.DropShadow?>
@@ -14,13 +15,17 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="601.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MonController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MonController">
    <children>
       <ToolBar prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: white;">
         <items>
-            <ImageView fitHeight="26.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fitHeight="43.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/logo.png" />
+               </image></ImageView>
           <Button fx:id="boutonAccueil" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-underline: true;" text="Accueil">
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -42,7 +47,7 @@
                <font>
                   <Font size="14.0" />
                </font></Button>
-            <Pane prefHeight="38.0" prefWidth="171.0" style="-fx-border-radius: 25;" />
+            <Pane prefHeight="43.0" prefWidth="780.0" style="-fx-border-radius: 25;" />
             <ImageView fitHeight="22.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/notifIcon.png" />
@@ -70,86 +75,114 @@
       </ToolBar>
       <StackPane fx:id="stackPane" prefHeight="150.0" prefWidth="200.0">
          <children>
-            <Pane fx:id="pageAccueil" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="601.0">
+            <Pane fx:id="pageAccueil" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="1200.0" visible="false">
                <children>
-                  <ImageView depthTest="DISABLE" fitHeight="400.0" fitWidth="405.0" layoutX="-128.0" layoutY="1.0" opacity="0.72" pickOnBounds="true" preserveRatio="true">
+                  <ImageView depthTest="DISABLE" fitHeight="545.0" fitWidth="602.0" layoutX="-128.0" layoutY="1.0" opacity="0.72" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/globe.png" />
                      </image>
                   </ImageView>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-1.0" layoutY="66.0" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="603.0" text="Bienvenue sur TravelFinder !">
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="323.0" layoutY="84.0" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="603.0" text="Bienvenue sur TravelFinder !">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <Button fx:id="boutonChercherVoyage" layoutX="227.0" layoutY="154.0" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="28.0" prefWidth="145.0" style="-fx-background-color: white; -fx-border-radius: 50; -fx-border-color: black;" text="Chercher un voyage">
+                  <Button fx:id="boutonChercherVoyage" layoutX="531.0" layoutY="241.0" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="33.0" prefWidth="187.0" style="-fx-background-color: white; -fx-border-radius: 50; -fx-border-color: black;" text="Chercher un voyage">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
+                     <font>
+                        <Font size="16.0" />
+                     </font>
                   </Button>
                </children>
             </Pane>
-            <Pane fx:id="pageVoyage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="601.0" visible="false">
+            <Pane fx:id="pageVoyage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="543.0" prefWidth="1202.0">
                <children>
                   <Label layoutX="28.0" layoutY="30.0" text="Informations du voyage" underline="true">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="30.0" layoutY="81.0" text="Départ :">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label layoutX="30.0" layoutY="81.0" text="Départ :" />
                   <ComboBox fx:id="villeDepart" layoutX="105.0" layoutY="79.0" minHeight="-Infinity" prefHeight="26.0" prefWidth="187.0" promptText="Choisir le point de départ" style="-fx-background-color: white; -fx-border-radius: 50; -fx-border-color: black;" />
-                  <Label layoutX="29.0" layoutY="137.0" text="Arrivée" />
+                  <Label layoutX="29.0" layoutY="137.0" text="Arrivée :">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
                   <ComboBox fx:id="villeArrivee" layoutX="105.0" layoutY="133.0" minHeight="-Infinity" prefHeight="26.0" prefWidth="187.0" promptText="Choisir la destination" style="-fx-background-color: white; -fx-border-radius: 50; -fx-border-color: black;" />
-                  <Label layoutX="31.0" layoutY="190.0" text="Date" />
+                  <Label layoutX="31.0" layoutY="190.0" text="Date">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
                   <DatePicker fx:id="date" layoutX="105.0" layoutY="187.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="112.0" />
-                  <Label layoutX="30.0" layoutY="237.0" text="Mode de transport :" />
-                  <Label layoutX="30.0" layoutY="286.0" text="Critère(s) à privilégier :" />
-                  <ComboBox fx:id="criteres" layoutX="170.0" layoutY="282.0" minHeight="-Infinity" prefHeight="26.0" prefWidth="169.0" promptText="Choisir le(s) critère(s)" style="-fx-background-color: white; -fx-border-radius: 50; -fx-border-color: black;" />
+                  <Label layoutX="30.0" layoutY="237.0" text="Mode de transport :">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="30.0" layoutY="286.0" text="Critère(s) à privilégier :">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="criteres" layoutX="182.0" layoutY="282.0" minHeight="-Infinity" prefHeight="26.0" prefWidth="169.0" promptText="Choisir le(s) critère(s)" style="-fx-background-color: white; -fx-border-radius: 50; -fx-border-color: black;" />
                   <CheckBox fx:id="checkBoxTrain" layoutX="163.0" layoutY="245.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="3.0" prefWidth="66.0" text="Train">
                      <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor></CheckBox>
+                     </cursor>
+                  </CheckBox>
                   <CheckBox fx:id="checkBoxAvion" layoutX="255.0" layoutY="245.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="3.0" prefWidth="66.0" text="Avion">
                      <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor></CheckBox>
+                     </cursor>
+                  </CheckBox>
                   <CheckBox fx:id="checkBoxBus" layoutX="335.0" layoutY="245.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="3.0" prefWidth="66.0" text="Bus">
                      <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor></CheckBox>
-                  <Button fx:id="boutonCalculerVoyage" layoutX="228.0" layoutY="340.0" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="28.0" prefWidth="145.0" style="-fx-background-color: white; -fx-border-radius: 50; -fx-border-color: black;" text="Chercher un voyage">
+                     </cursor>
+                  </CheckBox>
+                  <Button fx:id="boutonCalculerVoyage" layoutX="109.0" layoutY="409.0" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="28.0" prefWidth="145.0" style="-fx-background-color: white; -fx-border-radius: 50; -fx-border-color: black;" text="Chercher un voyage">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
                   </Button>
+                  <Line endX="250.0" layoutX="527.0" layoutY="259.0" rotate="90.0" startX="-100.0" />
+                  <ListView fx:id="resultats" layoutX="659.0" layoutY="81.0" prefHeight="374.0" prefWidth="501.0" style="-fx-border-style: none; -fx-background-color: transparent;" />
+                  <Label layoutX="659.0" layoutY="29.0" text="Résultats de la recherche" underline="true">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
                </children>
             </Pane>
             <Pane fx:id="pageHistorique" prefHeight="200.0" prefWidth="200.0" visible="false">
                <children>
-                  <Label layoutX="27.0" layoutY="30.0" text="Mes derniers voyages" underline="true">
+                  <Label layoutX="28.0" layoutY="30.0" text="Mes derniers voyages" underline="true">
                      <font>
-                        <Font size="14.0" />
+                        <Font size="16.0" />
                      </font>
                   </Label>
-                  <Label layoutX="35.0" layoutY="68.0" text="Aucun voyage enregistré">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                  </Label>
+                  <Label layoutX="27.0" layoutY="68.0" text="Aucun voyage enregistré" />
                </children>
             </Pane>
             <Pane fx:id="pageProfil" prefHeight="200.0" prefWidth="200.0" visible="false">
                <children>
                   <Label layoutX="28.0" layoutY="30.0" text="Mon profil voyageur" underline="true">
                      <font>
-                        <Font size="14.0" />
+                        <Font size="16.0" />
                      </font>
                   </Label>
-                  <Label layoutX="33.0" layoutY="84.0" text="Nom">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                  </Label>
+                  <Label layoutX="33.0" layoutY="84.0" text="Nom" />
                   <TextField fx:id="nom" layoutX="95.0" layoutY="80.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="80.0">
                      <font>
                         <Font size="12.0" />
@@ -158,11 +191,7 @@
                         <Cursor fx:constant="TEXT" />
                      </cursor>
                   </TextField>
-                  <Label layoutX="33.0" layoutY="118.0" text="Prénom">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                  </Label>
+                  <Label layoutX="33.0" layoutY="118.0" text="Prénom" />
                   <TextField fx:id="prenom" layoutX="95.0" layoutY="115.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="80.0">
                      <font>
                         <Font size="12.0" />
@@ -171,11 +200,7 @@
                         <Cursor fx:constant="TEXT" />
                      </cursor>
                   </TextField>
-                  <Label layoutX="31.0" layoutY="205.0" text="Mode(s) de transport favori(s)">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                  </Label>
+                  <Label layoutX="31.0" layoutY="205.0" text="Mode(s) de transport favori(s)" />
                   <CheckBox fx:id="profilCheckBoxTrain" layoutX="31.0" layoutY="225.0" mnemonicParsing="false" text="Train">
                      <font>
                         <Font size="11.0" />
@@ -200,11 +225,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </CheckBox>
-                  <Label layoutX="32.0" layoutY="260.0" text="Critère(s) favori(s)">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                  </Label>
+                  <Label layoutX="32.0" layoutY="260.0" text="Critère(s) favori(s)" />
                   <CheckBox fx:id="profilCheckBoxTemps" layoutX="31.0" layoutY="280.0" mnemonicParsing="false" text="Temps">
                      <font>
                         <Font size="12.0" />
@@ -229,19 +250,15 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </CheckBox>
-                  <Button fx:id="saveProfil" layoutX="236.0" layoutY="323.0" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="19.0" prefWidth="129.0" style="-fx-background-color: white; -fx-border-radius: 50; -fx-border-color: black;" text="Sauvegarder profil">
+                  <Button fx:id="saveProfil" layoutX="115.0" layoutY="378.0" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="19.0" prefWidth="129.0" style="-fx-background-color: white; -fx-border-radius: 50; -fx-border-color: black;" text="Sauvegarder profil">
                      <font>
-                        <Font size="12.0" />
+                        <Font size="14.0" />
                      </font>
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Label layoutX="33.0" layoutY="156.0" text="Coût max.">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                  </Label>
+                  <Label layoutX="33.0" layoutY="156.0" text="Coût max." />
                   <TextField fx:id="coutMax" layoutX="95.0" layoutY="152.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="80.0">
                      <font>
                         <Font size="12.0" />
