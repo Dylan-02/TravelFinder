@@ -7,6 +7,7 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.effect.DropShadow?>
@@ -15,7 +16,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MonController">
@@ -156,13 +156,13 @@
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Line endX="250.0" layoutX="527.0" layoutY="259.0" rotate="90.0" startX="-100.0" />
                   <ListView fx:id="resultats" layoutX="659.0" layoutY="81.0" prefHeight="374.0" prefWidth="501.0" style="-fx-border-style: none; -fx-background-color: transparent;" />
                   <Label layoutX="659.0" layoutY="29.0" text="Résultats de la recherche" underline="true">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Label>
+                  <Separator layoutX="600.0" layoutY="81.0" orientation="VERTICAL" prefHeight="374.0" prefWidth="0.0" />
                </children>
             </Pane>
             <Pane fx:id="pageHistorique" prefHeight="200.0" prefWidth="200.0" visible="false">
