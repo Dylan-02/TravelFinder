@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.Objects;
 
 
@@ -5,7 +6,7 @@ import fr.ulille.but.sae_s2_2024.Lieu;
 /**
  * Représente une ville.
  */
-public class Ville implements Lieu {
+public class Ville implements Lieu, Serializable {
     private String nom;
 
     /**

@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import fr.ulille.but.sae_s2_2024.ModaliteTransport;
  * @version 1.0
  */
 
-public class Voyageur {
+public class Voyageur implements Serializable {
     /** Attribut permettant de caractériser un voyageur par un nom sous forme de chaîne de caractère */
     private String nom;
     /** Attribut permettant de caractériser un voyageur par un critère préféré */

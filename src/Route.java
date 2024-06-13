@@ -1,11 +1,13 @@
 import fr.ulille.but.sae_s2_2024.*;
+
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * La classe Route représente un chemin composé de plusieurs trançons.
  * Elle implémente l'interface Chemin.
  */
-public class Route implements Chemin {
+public class Route implements Chemin, Serializable {
     private double poids;
     private List<Trancon> aretes;
     private Lieu depart;

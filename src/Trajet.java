@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.HashMap;
 
 import fr.ulille.but.sae_s2_2024.*;
@@ -6,7 +7,7 @@ import fr.ulille.but.sae_s2_2024.*;
  * La classe Trajet représente un trajet entre deux villes.
  * Elle implémente l'interface Trancon.
  */
-public class Trajet implements Trancon {
+public class Trajet implements Trancon, Serializable {
     private Ville depart;
     private Ville arrivee;
     private ModaliteTransport modalite;
