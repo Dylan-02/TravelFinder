@@ -14,6 +14,8 @@ public class AppV3 {
         transports.add(ModaliteTransport.AVION);
         VoyageurV3 voyageur = VoyageurV3.loadVoyageur("./saves/userSave");
         if (voyageur == null) new VoyageurV3("Lisa", 200, transports);
+        voyageur.setHistorique(new ArrayList<>());
+        System.out.println(voyageur.getPreferencesCouts());
         Plateforme plateforme = new Plateforme();
         MultiGrapheOrienteValue graphe = new MultiGrapheOrienteValue();
         String trajets = "./src/trajets.csv";

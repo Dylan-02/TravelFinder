@@ -41,7 +41,7 @@ public class VoyageurV3 extends Voyageur {
     }
 
     public void changePreference(TypeCout cout, int index) {
-        if (index < this.preferencesCouts.length-1) {
+        if (index < this.preferencesCouts.length-1 && index >= 0) {
             int positionCout = this.getPreferencePosition(cout);
             TypeCout tmp = this.preferencesCouts[index];
             this.preferencesCouts[index] = cout;
@@ -68,14 +68,14 @@ public class VoyageurV3 extends Voyageur {
     public void saveVoyageur() {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(new File("./src/saves/userSave")))) {
             oos.writeObject(this);
-        } catch(Exception e) {e.printStackTrace();}
+        } catch(Exception e) {e.getMessage();}
     }
 
     public static VoyageurV3 loadVoyageur(String file) {
         VoyageurV3 voyageur = null;
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(new File("./src/saves/userSave")))) {
             voyageur = (VoyageurV3) ois.readObject();
-        } catch(Exception e) {e.printStackTrace();}
+        } catch(Exception e) {e.getMessage();}
         return voyageur;
     }
 }
