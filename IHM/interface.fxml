@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MonController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MonController">
    <children>
       <ToolBar prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: white;">
         <items>
@@ -47,7 +47,7 @@
                <font>
                   <Font size="14.0" />
                </font></Button>
-            <Pane prefHeight="0.0" prefWidth="748.0" style="-fx-border-radius: 25;" />
+            <Pane prefHeight="43.0" prefWidth="780.0" style="-fx-border-radius: 25;" />
             <ImageView fitHeight="22.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/notifIcon.png" />
@@ -75,7 +75,7 @@
       </ToolBar>
       <StackPane fx:id="stackPane" prefHeight="150.0" prefWidth="200.0">
          <children>
-            <Pane fx:id="pageAccueil" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="1200.0">
+            <Pane fx:id="pageAccueil" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="1200.0" visible="false">
                <children>
                   <ImageView depthTest="DISABLE" fitHeight="545.0" fitWidth="602.0" layoutX="-128.0" layoutY="1.0" opacity="0.72" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -184,7 +184,7 @@
                   <ListView fx:id="listeHistorique" layoutX="28.0" layoutY="68.0" prefHeight="442.0" prefWidth="545.0" />
                </children>
             </Pane>
-            <Pane fx:id="pageProfil" prefHeight="200.0" prefWidth="200.0" visible="false">
+            <Pane fx:id="pageProfil" prefHeight="200.0" prefWidth="200.0">
                <children>
                   <Label layoutX="28.0" layoutY="30.0" text="Mon profil voyageur" underline="true">
                      <font>
@@ -192,7 +192,7 @@
                      </font>
                   </Label>
                   <Label layoutX="33.0" layoutY="84.0" text="Nom" />
-                  <TextField fx:id="nom" layoutX="112.0" layoutY="81.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="80.0">
+                  <TextField fx:id="nom" layoutX="112.0" layoutY="81.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="112.0">
                      <font>
                         <Font size="12.0" />
                      </font>
@@ -201,7 +201,7 @@
                      </cursor>
                   </TextField>
                   <Label layoutX="33.0" layoutY="118.0" text="Prénom" />
-                  <TextField fx:id="prenom" layoutX="112.0" layoutY="115.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="80.0">
+                  <TextField fx:id="prenom" layoutX="112.0" layoutY="115.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="112.0">
                      <font>
                         <Font size="12.0" />
                      </font>
@@ -210,7 +210,7 @@
                      </cursor>
                   </TextField>
                   <Label layoutX="33.0" layoutY="156.0" text="Coût max." />
-                  <TextField fx:id="coutMax" layoutX="112.0" layoutY="153.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="80.0">
+                  <TextField fx:id="coutMax" layoutX="112.0" layoutY="153.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="75.0">
                      <font>
                         <Font size="12.0" />
                      </font>
@@ -244,7 +244,7 @@
                      </cursor>
                   </CheckBox>
                   <Label layoutX="32.0" layoutY="260.0" text="Critère(s) favori(s)" />
-                  <Button fx:id="saveProfil" layoutX="117.0" layoutY="422.0" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="19.0" prefWidth="129.0" style="-fx-background-color: white; -fx-border-radius: 50; -fx-border-color: black;" text="Sauvegarder profil">
+                  <Button fx:id="saveProfil" layoutX="117.0" layoutY="422.0" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="32.0" prefWidth="153.0" style="-fx-background-color: white; -fx-border-radius: 50; -fx-border-color: black;" text="Sauvegarder profil">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -252,7 +252,8 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <ListView fx:id="profilPreferencesCout" layoutX="31.0" layoutY="278.0" prefHeight="76.0" prefWidth="200.0" style="-fx-border-color: white;" />
+                  <ListView fx:id="profilPreferencesCout" layoutX="31.0" layoutY="278.0" prefHeight="73.0" prefWidth="200.0" style="-fx-border-color: white;" />
+                  <Separator layoutX="598.0" layoutY="73.0" orientation="VERTICAL" prefHeight="374.0" prefWidth="0.0" />
                </children>
             </Pane>
          </children>
