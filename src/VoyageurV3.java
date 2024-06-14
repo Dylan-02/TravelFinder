@@ -12,15 +12,17 @@ public class VoyageurV3 extends Voyageur {
     private ArrayList<Route> historique;
 
     public VoyageurV3(String nom, double coutMax, ArrayList<ModaliteTransport> transportFavori) {
-        super(nom, null, coutMax, transportFavori);
-        this.historique = new ArrayList<>();
-        this.preferencesCouts = TypeCout.values();
+        this(nom, coutMax, transportFavori, new ArrayList<>(), TypeCout.values());
+    }
+
+    public VoyageurV3(String nom, double coutMax, ArrayList<ModaliteTransport> transportFavori, TypeCout[] preferencesCouts) {
+        this(nom, coutMax, transportFavori, new ArrayList<>(), preferencesCouts);
     }
 
     public VoyageurV3(String nom, double coutMax, ArrayList<ModaliteTransport> transportFavori, ArrayList<Route> historique, TypeCout[] preferencesCouts) {
         super(nom, null, coutMax, transportFavori);
         this.historique = historique;
-        if (preferencesCouts.length < TypeCout.values().length-1) this.preferencesCouts = preferencesCouts;
+        if (preferencesCouts.length == TypeCout.values().length) this.preferencesCouts = preferencesCouts;
         else this.preferencesCouts = TypeCout.values();
     }
 

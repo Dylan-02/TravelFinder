@@ -2,18 +2,28 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-
+import java.util.Scanner;
 import fr.ulille.but.sae_s2_2024.*;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.SnapshotParameters;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.WritableImage;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 
 public class MonController {
     
@@ -34,7 +44,7 @@ public class MonController {
     @FXML
     private Pane pageAccueil;
     @FXML 
-    Button boutonChercherVoyage;
+    private Button boutonChercherVoyage;
 
     // Chercher Voyage
     @FXML
@@ -52,7 +62,7 @@ public class MonController {
     @FXML
     private CheckBox checkBoxBus;
     @FXML
-    private ComboBox<TypeCout> criteres;
+    private ListView<TypeCout> preferencesCouts;
     @FXML
     private Button boutonCalculerVoyage;
     @FXML
@@ -63,6 +73,10 @@ public class MonController {
     // Historique
     @FXML
     private Pane pageHistorique;
+    @FXML
+    private Label labelAucunVoyage;
+    @FXML
+    private ListView<Route> listeHistorique;
 
     // Profil
     @FXML
@@ -80,11 +94,7 @@ public class MonController {
     @FXML
     private CheckBox profilCheckBoxBus;
     @FXML
-    private CheckBox profilCheckBoxTemps;
-    @FXML
-    private CheckBox profilCheckBoxCout;
-    @FXML
-    private CheckBox profilCheckBoxPollution;
+    private ListView<TypeCout> profilPreferencesCout;
     @FXML
     private Button saveProfil;
 
@@ -97,17 +107,19 @@ public class MonController {
 
     @FXML
     private void initialize() {
-        criteres.getItems().addAll(TypeCout.values());
         plateforme = new Plateforme();
         graphe = new MultiGrapheOrienteValue();
+        voyageur = VoyageurV3.loadVoyageur("./saves/userSave");
         boutonAccueil.setOnAction(event -> switchPane(pageAccueil));
-        boutonVoyage.setOnAction(event -> switchPane(pageVoyage));
-        boutonHistorique.setOnAction(event -> switchPane(pageHistorique));
-        boutonProfil.setOnAction(event -> switchPane(pageProfil));
-        boutonChercherVoyage.setOnAction(event -> switchPane(pageVoyage));
+        boutonVoyage.setOnAction(event -> openNouveauVoyage());
+        boutonHistorique.setOnAction(event -> openHistory());
+        boutonProfil.setOnAction(event -> openProfile());
+        boutonChercherVoyage.setOnAction(event -> openNouveauVoyage());
         boutonCalculerVoyage.setOnAction(event -> calculerVoyage());
         boutonReserverVoyage.setOnAction(event -> reserverVoyage());
         saveProfil.setOnAction(event -> createUser());
+        setupCell(profilPreferencesCout);
+        setupCell(preferencesCouts);
         try {
             String data[] = plateforme.getDataFromCSV(trajets);
             plateforme.verifiyData(data);
@@ -118,11 +130,20 @@ public class MonController {
             String[] correspondances = plateforme.getDataFromCSV(couts);
             plateforme.verifiyData(correspondances);
             plateforme.ajouterCorrespondances(correspondances);
-            ajouterVilles();
         } 
         catch (FileNotFoundException e) {System.err.println(e.getMessage());}
         catch (IllegalArgumentException e) {System.err.println("Argument invalide");}
         catch (InvalidStructureException e) {System.err.println(e.getMessage());}
+        ajouterVilles();
+        displayHistorique();
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            public void run() {
+                if (voyageur != null) {
+                    voyageur.saveVoyageur();
+                    System.out.println("User saved !");
+                }
+            }
+        });
     }
 
     private void switchPane(Pane pane) {
@@ -133,16 +154,21 @@ public class MonController {
     private void calculerVoyage() {
         resultats.getItems().clear();
         graphe = new MultiGrapheOrienteValue();
-        plateforme.ajouterVillesEtTrajets(graphe, criteres.getSelectionModel().getSelectedItem(), getSelectedTransports());
-        List<Chemin> result = AlgorithmeKPCC.kpcc(graphe, villeDepart.getSelectionModel().getSelectedItem(), villeArrivee.getSelectionModel().getSelectedItem(), 3);
-        if (result.size() > 0) {
+        plateforme.ajouterVillesEtTrajets(graphe, preferencesCouts.getItems().get(0), getSelectedTransports());
+        try {
+            List<Chemin> result = AlgorithmeKPCC.kpcc(graphe, villeDepart.getSelectionModel().getSelectedItem(), villeArrivee.getSelectionModel().getSelectedItem(), 3);
+            if (result.size() == 0) throw new NoTripException();
+            boutonReserverVoyage.setVisible(true);
             for (int idx=0; idx<result.size(); idx++) {
                 Route r = new Route(result.get(idx));
                 resultats.getItems().add(r);
-            }
-        } else {
-            // TODO
-            // Afficher message si aucun voyage trouvé
+            }      
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Aucun voyage trouvé");
+            alert.setHeaderText("Aucun voyage trouvé");
+            alert.setContentText("Veuillez essayer avec des critères différents");
+            alert.showAndWait();
         }
     }
 
@@ -169,7 +195,8 @@ public class MonController {
         if (profilCheckBoxTrain.isSelected()) transports.add(ModaliteTransport.TRAIN);
         try {
             double maxCost = Double.parseDouble(coutMax.getText());
-            voyageur = new VoyageurV3(name, maxCost, transports);
+            TypeCout[] prefCouts = profilPreferencesCout.getItems().toArray(new TypeCout[0]);
+            voyageur = new VoyageurV3(name, maxCost, transports, prefCouts);
             System.out.println("Hello "+voyageur.getNom()+" !");
         }
         catch (NumberFormatException e) {System.err.println(e.getMessage());}
@@ -184,5 +211,173 @@ public class MonController {
             System.out.println("Veuillez vous connecter avant de réserver un voyage");
         }
     }
-}
 
+    private void openHistory() {
+        switchPane(pageHistorique);
+        displayHistorique();
+    }
+
+    private void openProfile() {
+        switchPane(pageProfil);
+        displayProfile();
+    }
+
+    public void openNouveauVoyage() {
+        switchPane(pageVoyage);
+        setupPageChercherVoyage();
+    }
+
+    private void displayHistorique() {
+        listeHistorique.setVisible(false);
+        if (voyageur == null) labelAucunVoyage.setText("Veuillez vous connecter afin de consulter vos derniers voyages");
+        else if (voyageur.getHistorique().size() == 0) labelAucunVoyage.setText("Aucun voyage enregistré");
+        else {
+            labelAucunVoyage.setVisible(false);
+            listeHistorique.setVisible(true);
+            listeHistorique.getItems().clear();
+            for (Route r : voyageur.getHistorique()) {
+                listeHistorique.getItems().add(r);
+            }
+        }
+    }
+
+    private void displayProfile() {
+        if (voyageur != null) {
+            try (Scanner sc = new Scanner(voyageur.getNom())) {
+                sc.useDelimiter(" ");
+                nom.setText(sc.next());
+                prenom.setText(sc.next());
+            }
+            coutMax.setText(""+voyageur.getCoutMax());
+            checkTransportsBoxes(profilCheckBoxAvion, profilCheckBoxBus, profilCheckBoxTrain);
+            displayPrefCouts(profilPreferencesCout);
+        }
+    }
+
+    public void displayPrefCouts(ListView<TypeCout> listView) {
+        listView.getItems().clear();
+        for (TypeCout cout : voyageur.getPreferencesCouts()) {
+            listView.getItems().add(cout);
+        }
+    }
+
+    private void checkTransportsBoxes(CheckBox avion, CheckBox bus, CheckBox train) {
+        for (ModaliteTransport transport : voyageur.getTransportFavori()) {
+            if (transport.equals(ModaliteTransport.AVION)) avion.setSelected(true);
+            if (transport.equals(ModaliteTransport.BUS)) bus.setSelected(true);
+            if (transport.equals(ModaliteTransport.TRAIN)) train.setSelected(true);
+        }
+    }
+
+    public void setupPageChercherVoyage() {
+        if (voyageur != null) {
+            displayPrefCouts(preferencesCouts);
+            checkTransportsBoxes(checkBoxAvion, checkBoxBus, checkBoxTrain);
+        }
+    }
+
+    private void setupCell(ListView<TypeCout> listview) {
+        if (voyageur == null) listview.getItems().addAll(TypeCout.values());
+        else listview.getItems().addAll(voyageur.getPreferencesCouts());
+        listview.setCellFactory(param -> {
+            ListCell<TypeCout> cell = new ListCell<>() {
+                @Override
+                protected void updateItem(TypeCout item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty) {
+                        setText(null);
+                    } else {
+                        setText(item.name());
+                    }
+                }
+            };
+    
+            // Handle the DRAG_DETECTED event
+            cell.setOnDragDetected(event -> {
+                if (!cell.isEmpty()) {
+                    Dragboard db = cell.startDragAndDrop(TransferMode.MOVE);
+                    
+                    // Create a label to represent the item being dragged
+                    Label dragLabel = new Label(cell.getItem().name());
+                    dragLabel.setStyle("-fx-background-color: white; -fx-border-color: black;");
+                    
+                    // Set the width and height to match the cell's content
+                    dragLabel.setPrefWidth(cell.getWidth());
+                    dragLabel.setPrefHeight(cell.getHeight());
+    
+                    // Create a snapshot of the label
+                    SnapshotParameters snapshotParameters = new SnapshotParameters();
+                    snapshotParameters.setFill(Color.TRANSPARENT);
+                    WritableImage dragView = new WritableImage((int) dragLabel.getPrefWidth(), (int) dragLabel.getPrefHeight());
+                    dragLabel.snapshot(snapshotParameters, dragView);
+                    
+                    // Set the snapshot as the drag view
+                    db.setDragView(dragView, dragView.getWidth() / 2, dragView.getHeight() / 2);
+    
+                    ClipboardContent cc = new ClipboardContent();
+                    cc.putString(cell.getItem().name());
+                    db.setContent(cc);
+                    event.consume();
+                }
+            });
+    
+            // Handle the DRAG_OVER event
+            cell.setOnDragOver(event -> {
+                if (event.getGestureSource() != cell && event.getDragboard().hasString()) {
+                    event.acceptTransferModes(TransferMode.MOVE);
+                }
+                event.consume();
+            });
+    
+            // Handle the DRAG_ENTERED event
+            cell.setOnDragEntered(event -> {
+                if (event.getGestureSource() != cell && event.getDragboard().hasString()) {
+                    cell.setOpacity(0.3);
+                }
+            });
+    
+            // Handle the DRAG_EXITED event
+            cell.setOnDragExited(event -> {
+                if (event.getGestureSource() != cell && event.getDragboard().hasString()) {
+                    cell.setOpacity(1);
+                }
+            });
+    
+            // Handle the DRAG_DROPPED event
+            cell.setOnDragDropped(event -> {
+                Dragboard db = event.getDragboard();
+                if (db.hasString()) {
+                    int draggedIdx = -1;
+                    for (int i = 0; i < listview.getItems().size(); i++) {
+                        if (listview.getItems().get(i).name().equals(db.getString())) {
+                            draggedIdx = i;
+                            break;
+                        }
+                    }
+                    if (draggedIdx >= 0) {
+                        TypeCout draggedItem = listview.getItems().remove(draggedIdx);
+    
+                        int dropIdx;
+                        if (cell.isEmpty()) {
+                            dropIdx = listview.getItems().size();
+                        } else {
+                            dropIdx = cell.getIndex();
+                        }
+    
+                        listview.getItems().add(dropIdx, draggedItem);
+                        event.setDropCompleted(true);
+                        listview.getSelectionModel().select(dropIdx);
+                    } else {
+                        event.setDropCompleted(false);
+                    }
+                    event.consume();
+                }
+            });
+    
+            // Handle the DRAG_DONE event
+            cell.setOnDragDone(DragEvent::consume);
+    
+            return cell;
+        });
+    }
+}
