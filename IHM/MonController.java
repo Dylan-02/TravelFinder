@@ -135,21 +135,14 @@ public class MonController {
         graphe = new MultiGrapheOrienteValue();
         plateforme.ajouterVillesEtTrajets(graphe, criteres.getSelectionModel().getSelectedItem(), getSelectedTransports());
         List<Chemin> result = AlgorithmeKPCC.kpcc(graphe, villeDepart.getSelectionModel().getSelectedItem(), villeArrivee.getSelectionModel().getSelectedItem(), 3);
-        String resultat = "";
         if (result.size() > 0) {
             for (int idx=0; idx<result.size(); idx++) {
                 Route r = new Route(result.get(idx));
-                resultat = r.toString() + switch (criteres.getSelectionModel().getSelectedItem()) {
-                    case CO2 -> "kg CO2e.";
-                    case PRIX -> "€.";
-                    case TEMPS -> " minutes.";
-                    default -> ".";
-                };
                 resultats.getItems().add(r);
             }
         } else {
-            resultat = "Aucun trajet correspondant";
-            //resultats.getItems().add(resultat);
+            // TODO
+            // Afficher message si aucun voyage trouvé
         }
     }
 

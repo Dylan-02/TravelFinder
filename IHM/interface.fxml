@@ -75,7 +75,7 @@
       </ToolBar>
       <StackPane fx:id="stackPane" prefHeight="150.0" prefWidth="200.0">
          <children>
-            <Pane fx:id="pageAccueil" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="1200.0" visible="false">
+            <Pane fx:id="pageAccueil" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="1200.0">
                <children>
                   <ImageView depthTest="DISABLE" fitHeight="545.0" fitWidth="602.0" layoutX="-128.0" layoutY="1.0" opacity="0.72" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -183,7 +183,7 @@
                   <Label layoutX="27.0" layoutY="68.0" text="Aucun voyage enregistré" />
                </children>
             </Pane>
-            <Pane fx:id="pageProfil" prefHeight="200.0" prefWidth="200.0">
+            <Pane fx:id="pageProfil" prefHeight="200.0" prefWidth="200.0" visible="false">
                <children>
                   <Label layoutX="28.0" layoutY="30.0" text="Mon profil voyageur" underline="true">
                      <font>
