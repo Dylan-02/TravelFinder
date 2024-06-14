@@ -47,7 +47,7 @@
                <font>
                   <Font size="14.0" />
                </font></Button>
-            <Pane prefHeight="43.0" prefWidth="780.0" style="-fx-border-radius: 25;" />
+            <Pane prefHeight="0.0" prefWidth="748.0" style="-fx-border-radius: 25;" />
             <ImageView fitHeight="22.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/notifIcon.png" />
@@ -97,7 +97,7 @@
                   </Button>
                </children>
             </Pane>
-            <Pane fx:id="pageVoyage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="543.0" prefWidth="1202.0">
+            <Pane fx:id="pageVoyage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="543.0" prefWidth="1202.0" visible="false">
                <children>
                   <Label layoutX="28.0" layoutY="30.0" text="Informations du voyage" underline="true">
                      <font>
@@ -132,8 +132,8 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="criteres" layoutX="182.0" layoutY="282.0" minHeight="-Infinity" prefHeight="26.0" prefWidth="169.0" promptText="Choisir le(s) critère(s)" style="-fx-background-color: white; -fx-border-radius: 50; -fx-border-color: black;" />
-                  <CheckBox fx:id="checkBoxTrain" layoutX="163.0" layoutY="245.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="3.0" prefWidth="66.0" text="Train">
+                  <ComboBox fx:id="criteres" layoutX="204.0" layoutY="282.0" minHeight="-Infinity" prefHeight="26.0" prefWidth="195.0" promptText="Choisir le(s) critère(s)" style="-fx-background-color: white; -fx-border-radius: 50; -fx-border-color: black;" />
+                  <CheckBox fx:id="checkBoxTrain" layoutX="180.0" layoutY="245.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="3.0" prefWidth="66.0" text="Train">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -148,7 +148,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </CheckBox>
-                  <Button fx:id="boutonCalculerVoyage" layoutX="109.0" layoutY="409.0" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="28.0" prefWidth="145.0" style="-fx-background-color: white; -fx-border-radius: 50; -fx-border-color: black;" text="Chercher un voyage">
+                  <Button fx:id="boutonCalculerVoyage" layoutX="201.0" layoutY="391.0" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: white; -fx-border-radius: 50; -fx-border-color: black;" text="Chercher un voyage">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -156,13 +156,21 @@
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <ListView fx:id="resultats" layoutX="659.0" layoutY="81.0" prefHeight="374.0" prefWidth="501.0" style="-fx-border-style: none; -fx-background-color: transparent;" />
+                  <ListView fx:id="resultats" layoutX="659.0" layoutY="81.0" prefHeight="236.0" prefWidth="501.0" style="-fx-border-style: none; -fx-background-color: transparent;" />
                   <Label layoutX="659.0" layoutY="29.0" text="Résultats de la recherche" underline="true">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Label>
                   <Separator layoutX="600.0" layoutY="81.0" orientation="VERTICAL" prefHeight="374.0" prefWidth="0.0" />
+                  <Button fx:id="boutonReserverVoyage" layoutX="822.0" layoutY="391.0" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: white; -fx-border-radius: 50; -fx-border-color: black;" text="Réserver le voyage">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
                </children>
             </Pane>
             <Pane fx:id="pageHistorique" prefHeight="200.0" prefWidth="200.0" visible="false">
@@ -175,7 +183,7 @@
                   <Label layoutX="27.0" layoutY="68.0" text="Aucun voyage enregistré" />
                </children>
             </Pane>
-            <Pane fx:id="pageProfil" prefHeight="200.0" prefWidth="200.0" visible="false">
+            <Pane fx:id="pageProfil" prefHeight="200.0" prefWidth="200.0">
                <children>
                   <Label layoutX="28.0" layoutY="30.0" text="Mon profil voyageur" underline="true">
                      <font>
@@ -183,7 +191,7 @@
                      </font>
                   </Label>
                   <Label layoutX="33.0" layoutY="84.0" text="Nom" />
-                  <TextField fx:id="nom" layoutX="95.0" layoutY="80.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="80.0">
+                  <TextField fx:id="nom" layoutX="112.0" layoutY="81.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="80.0">
                      <font>
                         <Font size="12.0" />
                      </font>
@@ -192,7 +200,7 @@
                      </cursor>
                   </TextField>
                   <Label layoutX="33.0" layoutY="118.0" text="Prénom" />
-                  <TextField fx:id="prenom" layoutX="95.0" layoutY="115.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="80.0">
+                  <TextField fx:id="prenom" layoutX="112.0" layoutY="115.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="80.0">
                      <font>
                         <Font size="12.0" />
                      </font>
@@ -203,7 +211,7 @@
                   <Label layoutX="31.0" layoutY="205.0" text="Mode(s) de transport favori(s)" />
                   <CheckBox fx:id="profilCheckBoxTrain" layoutX="31.0" layoutY="225.0" mnemonicParsing="false" text="Train">
                      <font>
-                        <Font size="11.0" />
+                        <Font size="12.0" />
                      </font>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -211,7 +219,7 @@
                   </CheckBox>
                   <CheckBox fx:id="profilCheckBoxAvion" layoutX="96.0" layoutY="225.0" mnemonicParsing="false" text="Avion">
                      <font>
-                        <Font size="11.0" />
+                        <Font size="12.0" />
                      </font>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -219,7 +227,7 @@
                   </CheckBox>
                   <CheckBox fx:id="profilCheckBoxBus" layoutX="161.0" layoutY="225.0" mnemonicParsing="false" text="Bus">
                      <font>
-                        <Font size="11.0" />
+                        <Font size="12.0" />
                      </font>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -234,7 +242,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </CheckBox>
-                  <CheckBox fx:id="profilCheckBoxCout" layoutX="96.0" layoutY="280.0" mnemonicParsing="false" text="Coût">
+                  <CheckBox fx:id="profilCheckBoxCout" layoutX="112.0" layoutY="280.0" mnemonicParsing="false" text="Coût">
                      <font>
                         <Font size="12.0" />
                      </font>
@@ -242,7 +250,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </CheckBox>
-                  <CheckBox fx:id="profilCheckBoxPollution" layoutX="161.0" layoutY="280.0" mnemonicParsing="false" text="Pollution">
+                  <CheckBox fx:id="profilCheckBoxPollution" layoutX="180.0" layoutY="280.0" mnemonicParsing="false" text="Pollution">
                      <font>
                         <Font size="12.0" />
                      </font>
@@ -259,7 +267,7 @@
                      </cursor>
                   </Button>
                   <Label layoutX="33.0" layoutY="156.0" text="Coût max." />
-                  <TextField fx:id="coutMax" layoutX="95.0" layoutY="152.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="80.0">
+                  <TextField fx:id="coutMax" layoutX="112.0" layoutY="153.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="80.0">
                      <font>
                         <Font size="12.0" />
                      </font>

@@ -56,7 +56,9 @@ public class MonController {
     @FXML
     private Button boutonCalculerVoyage;
     @FXML
-    private ListView<String> resultats;
+    private Button boutonReserverVoyage;
+    @FXML
+    private ListView<Route> resultats;
 
     // Historique
     @FXML
@@ -88,7 +90,7 @@ public class MonController {
 
     // App
     private Plateforme plateforme;
-    private Voyageur voyageur;
+    private VoyageurV3 voyageur;
     private MultiGrapheOrienteValue graphe;
     private String trajets = "./src/trajets.csv";
     private String couts = "./src/couts.csv";
@@ -104,6 +106,7 @@ public class MonController {
         boutonProfil.setOnAction(event -> switchPane(pageProfil));
         boutonChercherVoyage.setOnAction(event -> switchPane(pageVoyage));
         boutonCalculerVoyage.setOnAction(event -> calculerVoyage());
+        boutonReserverVoyage.setOnAction(event -> reserverVoyage());
         saveProfil.setOnAction(event -> createUser());
         try {
             String data[] = plateforme.getDataFromCSV(trajets);
@@ -142,11 +145,11 @@ public class MonController {
                     case TEMPS -> " minutes.";
                     default -> ".";
                 };
-                resultats.getItems().add(resultat);
+                resultats.getItems().add(r);
             }
         } else {
             resultat = "Aucun trajet correspondant";
-            resultats.getItems().add(resultat);
+            //resultats.getItems().add(resultat);
         }
     }
 
@@ -173,11 +176,20 @@ public class MonController {
         if (profilCheckBoxTrain.isSelected()) transports.add(ModaliteTransport.TRAIN);
         try {
             double maxCost = Double.parseDouble(coutMax.getText());
-            voyageur = new Voyageur(name, TypeCout.TEMPS, maxCost, transports);
+            voyageur = new VoyageurV3(name, maxCost, transports);
             System.out.println("Hello "+voyageur.getNom()+" !");
         }
         catch (NumberFormatException e) {System.err.println(e.getMessage());}
         catch (NullPointerException e) {System.err.println(e.getMessage());}
+    }
+
+    private void reserverVoyage() {
+        Route route = resultats.getSelectionModel().getSelectedItem();
+        if (voyageur != null && route != null) {
+            voyageur.addToHistorique(route);
+        } else {
+            System.out.println("Veuillez vous connecter avant de réserver un voyage");
+        }
     }
 }
 
