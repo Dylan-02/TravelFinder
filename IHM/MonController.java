@@ -320,27 +320,21 @@ public class MonController {
                     }
                 }
             };
-    
-            // Handle the DRAG_DETECTED event
+
             cell.setOnDragDetected(event -> {
                 if (!cell.isEmpty()) {
                     Dragboard db = cell.startDragAndDrop(TransferMode.MOVE);
-                    
-                    // Create a label to represent the item being dragged
+
                     Label dragLabel = new Label(cell.getItem().name());
                     dragLabel.setStyle("-fx-background-color: white; -fx-border-color: black;");
-                    
-                    // Set the width and height to match the cell's content
                     dragLabel.setPrefWidth(cell.getWidth());
                     dragLabel.setPrefHeight(cell.getHeight());
-    
-                    // Create a snapshot of the label
+
                     SnapshotParameters snapshotParameters = new SnapshotParameters();
                     snapshotParameters.setFill(Color.TRANSPARENT);
+                    
                     WritableImage dragView = new WritableImage((int) dragLabel.getPrefWidth(), (int) dragLabel.getPrefHeight());
                     dragLabel.snapshot(snapshotParameters, dragView);
-                    
-                    // Set the snapshot as the drag view
                     db.setDragView(dragView, dragView.getWidth() / 2, dragView.getHeight() / 2);
     
                     ClipboardContent cc = new ClipboardContent();
@@ -350,7 +344,6 @@ public class MonController {
                 }
             });
     
-            // Handle the DRAG_OVER event
             cell.setOnDragOver(event -> {
                 if (event.getGestureSource() != cell && event.getDragboard().hasString()) {
                     event.acceptTransferModes(TransferMode.MOVE);
@@ -358,21 +351,18 @@ public class MonController {
                 event.consume();
             });
     
-            // Handle the DRAG_ENTERED event
             cell.setOnDragEntered(event -> {
                 if (event.getGestureSource() != cell && event.getDragboard().hasString()) {
                     cell.setOpacity(0.3);
                 }
             });
     
-            // Handle the DRAG_EXITED event
             cell.setOnDragExited(event -> {
                 if (event.getGestureSource() != cell && event.getDragboard().hasString()) {
                     cell.setOpacity(1);
                 }
             });
     
-            // Handle the DRAG_DROPPED event
             cell.setOnDragDropped(event -> {
                 Dragboard db = event.getDragboard();
                 if (db.hasString()) {
@@ -403,7 +393,6 @@ public class MonController {
                 }
             });
     
-            // Handle the DRAG_DONE event
             cell.setOnDragDone(DragEvent::consume);
     
             return cell;
