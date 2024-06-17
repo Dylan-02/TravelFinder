@@ -8,8 +8,8 @@ import java.util.List;
  * Elle implémente l'interface Chemin.
  */
 public class Route implements Chemin, Serializable {
-    private double poids;
-    private List<Trancon> aretes;
+    protected double poids;
+    protected List<Trancon> aretes;
     private Lieu depart;
     private Lieu arrivee;
 

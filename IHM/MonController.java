@@ -1,4 +1,5 @@
 import java.io.FileNotFoundException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -68,7 +69,7 @@ public class MonController {
     @FXML
     private Button boutonReserverVoyage;
     @FXML
-    private ListView<Route> resultats;
+    private ListView<RouteV3> resultats;
 
     // Historique
     @FXML
@@ -77,6 +78,20 @@ public class MonController {
     private Label labelAucunVoyage;
     @FXML
     private ListView<Route> listeHistorique;
+    @FXML
+    private Label nbVoyages;
+    @FXML
+    private Label tempsTotal;
+    @FXML
+    private Label tempsMoyen;
+    @FXML
+    private Label coutTotal;
+    @FXML
+    private Label coutMoyen;
+    @FXML
+    private Label emissionsTotal;
+    @FXML
+    private Label emissionsMoyenne;
 
     // Profil
     @FXML
@@ -160,7 +175,7 @@ public class MonController {
             if (result.size() == 0) throw new NoTripException();
             boutonReserverVoyage.setVisible(true);
             for (int idx=0; idx<result.size(); idx++) {
-                Route r = new Route(result.get(idx));
+                RouteV3 r = new RouteV3(result.get(idx));
                 resultats.getItems().add(r);
             }      
         } catch (Exception e) {
@@ -204,7 +219,7 @@ public class MonController {
     }
 
     private void reserverVoyage() {
-        Route route = resultats.getSelectionModel().getSelectedItem();
+        RouteV3 route = resultats.getSelectionModel().getSelectedItem();
         if (voyageur != null && route != null) {
             voyageur.addToHistorique(route);
         } else {
@@ -215,6 +230,7 @@ public class MonController {
     private void openHistory() {
         switchPane(pageHistorique);
         displayHistorique();
+        displayStatistiques();
     }
 
     private void openProfile() {
@@ -238,6 +254,19 @@ public class MonController {
             for (Route r : voyageur.getHistorique()) {
                 listeHistorique.getItems().add(r);
             }
+        }
+    }
+
+    private void displayStatistiques() {
+        if (voyageur != null && voyageur.getHistorique().size() > 0) {
+            DecimalFormat df = new DecimalFormat("#.##");
+            nbVoyages.setText(""+voyageur.getHistorique().size());
+            tempsTotal.setText(""+df.format(voyageur.getTotalParCoutHistorique(TypeCout.TEMPS))+" minutes");
+            tempsMoyen.setText(""+df.format(voyageur.getTotalParCoutHistorique(TypeCout.TEMPS)/voyageur.getHistorique().size())+" minutes");
+            coutTotal.setText(""+df.format(voyageur.getTotalParCoutHistorique(TypeCout.PRIX))+"€");
+            coutMoyen.setText(""+df.format(voyageur.getTotalParCoutHistorique(TypeCout.PRIX)/voyageur.getHistorique().size())+"€");
+            emissionsTotal.setText(""+df.format(voyageur.getTotalParCoutHistorique(TypeCout.CO2))+" kg CO2e");
+            emissionsMoyenne.setText(""+df.format(voyageur.getTotalParCoutHistorique(TypeCout.CO2)/voyageur.getHistorique().size())+" kg CO2e");
         }
     }
 

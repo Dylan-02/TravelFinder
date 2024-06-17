@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
+import java.text.DecimalFormat;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
@@ -43,7 +44,7 @@ public class VoyageurV3 extends Voyageur {
     }
 
     public void changePreference(TypeCout cout, int index) {
-        if (index < this.preferencesCouts.length-1 && index >= 0) {
+        if (index < this.preferencesCouts.length && index >= 0) {
             int positionCout = this.getPreferencePosition(cout);
             TypeCout tmp = this.preferencesCouts[index];
             this.preferencesCouts[index] = cout;
@@ -65,6 +66,35 @@ public class VoyageurV3 extends Voyageur {
 
     public void addToHistorique(Route newRoute) {
         if (newRoute != null) this.historique.add(newRoute);
+    }
+
+    public double getTotalParCoutHistorique(TypeCout cout) {
+        double total = 0;
+        for (int idx=0; idx < this.historique.size(); idx++) {
+            RouteV3 route = (RouteV3)this.historique.get(idx);
+            total += route.getCoutTotal(cout);
+        }
+        return total;
+    }
+
+    public String getStatistiques() {
+        String res = "Vous n'avez pas encore de voyage enregistré.";
+        if (this.historique.size() > 0) {
+            DecimalFormat df = new DecimalFormat("#.##");
+            double totalTemps = this.getTotalParCoutHistorique(TypeCout.TEMPS);
+            double moyenneTemps = totalTemps/this.historique.size();
+            double totalPrix = this.getTotalParCoutHistorique(TypeCout.PRIX);
+            double moyennePrix = totalPrix/this.historique.size();
+            double totalPollution = this.getTotalParCoutHistorique(TypeCout.CO2);
+            double moyennePollution = totalPollution/this.historique.size();
+            res = "Au total, vous avez :\n"+
+                "Voyagé "+this.historique.size()+" fois.\n"+
+                "Passé "+totalTemps+" minutes dans les transports, avec en moyenne "+moyenneTemps+" minutes par voyage.\n"+
+                "Dépensé "+totalPrix+"€ pour vos voyages, avec en moyenne "+moyennePrix+"€ par voyage\n"+
+                "Emis "+df.format(totalPollution)+"kg CO2e, avec en moyenne "+df.format(moyennePollution)+"kg CO2 émis par voyage";
+        }
+
+        return res;
     }
 
     public void saveVoyageur() {

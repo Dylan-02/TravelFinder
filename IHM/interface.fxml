@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MonController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MonController">
    <children>
       <ToolBar prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: white;">
         <items>
@@ -173,7 +173,7 @@
                   </Button>
                </children>
             </Pane>
-            <Pane fx:id="pageHistorique" prefHeight="200.0" prefWidth="200.0" visible="false">
+            <Pane fx:id="pageHistorique" prefHeight="200.0" prefWidth="200.0">
                <children>
                   <Label layoutX="28.0" layoutY="30.0" text="Mes derniers voyages" underline="true">
                      <font>
@@ -181,10 +181,86 @@
                      </font>
                   </Label>
                   <Label fx:id="labelAucunVoyage" layoutX="28.0" layoutY="68.0" text="Aucun voyage enregistré" />
-                  <ListView fx:id="listeHistorique" layoutX="28.0" layoutY="68.0" prefHeight="442.0" prefWidth="545.0" />
+                  <ListView fx:id="listeHistorique" layoutX="28.0" layoutY="68.0" prefHeight="442.0" prefWidth="545.0" style="-fx-border-style: none;" />
+                  <Separator layoutX="590.0" layoutY="66.0" orientation="VERTICAL" prefHeight="445.0" prefWidth="10.0" />
+                  <Label layoutX="623.0" layoutY="30.0" text="Mes statistiques" underline="true">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="623.0" layoutY="85.0" text="Nombre de voyages :">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="623.0" layoutY="117.0" text="Temps total passé dans les transports :">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="623.0" layoutY="149.0" text="Temps moyen passé dans les transports :">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="623.0" layoutY="181.0" text="Coût total des voyages :">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="623.0" layoutY="213.0" text="Coût moyen d'un voyage :">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="623.0" layoutY="245.0" text="Total des émissions de CO2 :">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="623.0" layoutY="277.0" text="Emission de CO2 moyenne d'un voyage :">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="nbVoyages" layoutX="771.0" layoutY="85.0" text="0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="tempsTotal" layoutX="878.0" layoutY="117.0" text="0 minutes">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="tempsMoyen" layoutX="885.0" layoutY="149.0" text="0 minutes">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="coutTotal" layoutX="788.0" layoutY="181.0" text="0€">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="coutMoyen" layoutX="804.0" layoutY="213.0" text="0€">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="emissionsTotal" layoutX="808.0" layoutY="245.0" text="0 kg CO2e">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="emissionsMoyenne" layoutX="882.0" layoutY="277.0" text="0 kg CO2e">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
                </children>
             </Pane>
-            <Pane fx:id="pageProfil" prefHeight="200.0" prefWidth="200.0">
+            <Pane fx:id="pageProfil" prefHeight="200.0" prefWidth="200.0" visible="false">
                <children>
                   <Label layoutX="28.0" layoutY="30.0" text="Mon profil voyageur" underline="true">
                      <font>

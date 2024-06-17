@@ -8,12 +8,16 @@ import org.junit.jupiter.api.Test;
 
 import fr.ulille.but.sae_s2_2024.MultiGrapheOrienteValue;
 import fr.ulille.but.sae_s2_2024.Trancon;
+import fr.ulille.but.sae_s2_2024.AlgorithmeKPCC;
+import fr.ulille.but.sae_s2_2024.Chemin;
 import fr.ulille.but.sae_s2_2024.ModaliteTransport;
 
 import java.io.FileNotFoundException;
+import java.lang.ProcessBuilder.Redirect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 public class AppV3Test {
     VoyageurV3 v1, v2, v3; 
@@ -269,4 +273,46 @@ public class AppV3Test {
         catch (InvalidStructureException e) {System.err.println(e.getMessage());}
         assertTrue(Arrays.equals(result, trajets));
     }
-}
+
+    @Test
+    void testGetCoutTotal() {
+        for (int idx=0; idx<data.length; idx++) {
+            String[] tab = data[idx].split(";");
+            plateforme.retrieveData(tab);
+        }
+        plateforme.ajouterVillesEtTrajets(graphe, v1.getTypeCoutPref(), v1.getTransportFavori());
+        List<Chemin> result = AlgorithmeKPCC.kpcc(graphe, a, d, 3);
+        RouteV3 r = new RouteV3(result.get(0));
+        assertEquals(1.4+1.2, r.getCoutTotal(TypeCout.CO2));
+        assertEquals(107, r.getCoutTotal(TypeCout.PRIX));
+        assertEquals(140, r.getCoutTotal(TypeCout.TEMPS));
+    }
+
+    @Test
+    void testSetPoids() {
+        for (int idx=0; idx<data.length; idx++) {
+            String[] tab = data[idx].split(";");
+            plateforme.retrieveData(tab);
+        }
+        plateforme.ajouterVillesEtTrajets(graphe, v1.getTypeCoutPref(), v1.getTransportFavori());
+        List<Chemin> result = AlgorithmeKPCC.kpcc(graphe, a, d, 3);
+        RouteV3 r = new RouteV3(result.get(0));
+        assertEquals(1.4+1.2, r.poids());
+        r.setPoids(5.7);
+        assertEquals(5.7, r.poids());
+    }
+
+    @Test
+    void testGetMaximumParCout() {
+        for (int idx=0; idx<data.length; idx++) {
+            String[] tab = data[idx].split(";");
+            plateforme.retrieveData(tab);
+        }
+        plateforme.ajouterVillesEtTrajets(graphe, v1.getTypeCoutPref(), v1.getTransportFavori());
+        List<Chemin> result = AlgorithmeKPCC.kpcc(graphe, a, d, 3);
+        RouteV3 r = new RouteV3(result.get(0));
+        assertEquals(1.4, r.getMaximumParCout(TypeCout.CO2));
+        assertEquals(65, r.getMaximumParCout(TypeCout.PRIX));
+        assertEquals(90, r.getMaximumParCout(TypeCout.TEMPS));
+    }
+} 

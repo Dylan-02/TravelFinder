@@ -12,10 +12,12 @@ public class AppV3 {
         ArrayList<ModaliteTransport> transports = new ArrayList<>();
         transports.add(ModaliteTransport.TRAIN);
         transports.add(ModaliteTransport.AVION);
+        TypeCout[] coutsPref = new TypeCout[]{TypeCout.PRIX, TypeCout.TEMPS, TypeCout.CO2};
         VoyageurV3 voyageur = VoyageurV3.loadVoyageur("./saves/userSave");
-        if (voyageur == null) new VoyageurV3("Lisa", 200, transports);
+        if (voyageur == null) voyageur = new VoyageurV3("Dupont Lisa", 200, transports);
         voyageur.setHistorique(new ArrayList<>());
-        Plateforme plateforme = new Plateforme();
+        voyageur.setPreferencesCouts(coutsPref);
+        PlateformeV3 plateforme = new PlateformeV3();
         MultiGrapheOrienteValue graphe = new MultiGrapheOrienteValue();
         String trajets = "./src/trajets.csv";
         String couts = "./src/couts.csv";
@@ -35,6 +37,7 @@ public class AppV3 {
             System.out.println(plateforme.afficherPCC(result, voyageur.getTypeCoutPref()));
             voyageur.addToHistorique(new RouteV3(result.get(0)));
             System.out.println("Historique de "+voyageur.getNom()+":\n"+voyageur.getHistorique());
+            System.out.println(voyageur.getStatistiques());
             voyageur.saveVoyageur();
         }
         catch (FileNotFoundException e) {System.err.println(e.getMessage());}
