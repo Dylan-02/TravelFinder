@@ -1,28 +1,3 @@
-Votre rapport doit suivre le plan donné dans ce document.
-
-Contraintes à respecter pour le rapport
-
-- [ ] format: Markdown qu'on peut lire sur gitlab, ou pdf, ou html
-- [ ] rapport dans un répertoire `graphes` à la racine du dépôt git
-- [ ] rapport prêt le 21/06/2024; aucun délai supplémentaire ne sera accordé quelle que soit la raison donnée. Concrètement, on va récupérer la dernier daté au plus tard le 21/06/2024 et on ne verra même pas de version ultérieure du rapport, si elles existent. Minuit et une minute du 22/06/2024 sera trop tard
-- [ ] respecte le plan donné ci-dessous
-- [ ] garder les explications *en italique* jusque la fin pour s'y référer en écrivant le rapport
-- [ ] supprimer les explications *en italique* juste avant de rendre la version finale du rapport
-- [ ] le rapport est un texte **rédigé** avec des phrases intelligibles (on ne se contente pas de répondre laconiquement aux questions posées)
-
-Idéalement, le rapport est rédigé au fur et à mesure avec le calendrier donné dans le sujet:
-
-- section Version 1 faite avant le 18/05/2024 (1pt/20 si c'est le cas)
-- section Version 2 faite avant le 08/06/2024 (1pt/20 si c'est le cas)
-
-Finalement, l'utilisation d'un outils de génération de langage est autorisées, à condition de le faire intelligemment. En particulier, veillez à:
-- avoir un rapport cohérent avec un style cohérent sur la totalité du document (niveau de langage, richesse du vocabulaire, termes utilisés, verbosité, ...)
-- un rapport trop verbeux est fastidieux à lire. Si vous utilisez un outil pour faire du texte verbeux inutile, on utilisera un outil pour en faire un résumé et on corrigera uniquement le résumé
-- les outils de génération insèrent parfois des phrases ne faisant pas partie du texte, mais qui s'adressent à l'interlocuteur (par exemple, pour vous informer que la limite de 2000 tokens est atteinte). La présence de telles phrases dans le rapport indique que vous n'avez pas relu et sera lourdement pénalisée.
-
-
-**Début du rapport** Tout ce qui précède sera enlevé pour la version finale
-
 ------------------------------------------
 
 SAE S2.02 -- Rapport pour la ressource Graphes
