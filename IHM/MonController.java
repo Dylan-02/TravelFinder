@@ -223,7 +223,11 @@ public class MonController {
         if (voyageur != null && route != null) {
             voyageur.addToHistorique(route);
         } else {
-            System.out.println("Veuillez vous connecter avant de réserver un voyage");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Connexion requise");
+            alert.setHeaderText("Connexion requise");
+            alert.setContentText("Veuillez vous connecter afin de pouvoir réserver un voyage");
+            alert.showAndWait();
         }
     }
 
