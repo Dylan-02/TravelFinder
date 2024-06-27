@@ -1,0 +1,11 @@
+# E4
+
+*LECOCQ, VANHOUTTE, Groupe E*
+
+Vous avez bien modélisé les problèmes par les graphes, je vous en félicite.
+
+Pour la V2, votre rapport ne décrit pas précisément quels sommets il faut ajouter pour gérer les correspondances. Je vois dans votre code que vous ajoutez un sommet par type de transport. Ce modèle est partiellement correct. En effet, on pourrait avoir le trajet le plus court qui fait une correspondance train-avion dans une ville, donc contenir comme sous-chemin par. ex. Lille_Train -> Lille_Avion, et le deuxième trajet plus court qui passe par la gare de bus, càd avoir le sous-chemin Lille_Train -> Lille_Bus -> Lille_Avion, ce qui n'est clairement pas un chemin souhaitable.
+
+Pour la V3, votre modèle convient, mais apparemment vous n'avez pas eu le temps de l'implémenter.
+
+Par ailleurs, le rapport est très bien écrit: contient toute l'information nécessaire (sauf pour la V2) tout en étant concis.
